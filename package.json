@@ -1,0 +1,11 @@
+{
+  "name": "trade-checker",
+  "private": true,
+  "type": "module",
+  "description": "해외영업팀을 위한 B2B 바이어 신용 검증 서비스 (정적 화면 + Vercel 서버리스 함수, 외부 패키지 없음)",
+  "engines": { "node": ">=18" },
+  "scripts": {
+    "dev": "node dev-server.mjs",
+    "test:live": "bash tests/run-live-tests.sh"
+  }
+}

@@ -1,0 +1,15 @@
+<!doctype html>
+<html lang="ko">
+<head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>결제 확인 중 · Trade Checker</title><meta name="robots" content="noindex"></head>
+<body style="font-family:system-ui,sans-serif;display:flex;align-items:center;justify-content:center;min-height:100vh;margin:0;color:#0B1A2E">
+<p>결제를 확인하고 있습니다…</p>
+<script>
+  // 토스 결제창이 붙여 준 paymentKey·orderId·amount 를 앱으로 넘깁니다.
+  var q = new URLSearchParams(location.search);
+  try {
+    sessionStorage.setItem('tc.pay', JSON.stringify({ status: 'success', paymentKey: q.get('paymentKey'), orderId: q.get('orderId'), amount: Number(q.get('amount')) }));
+  } catch (e) {}
+  location.replace('/app/#/payment/result');
+</script>
+</body>
+</html>

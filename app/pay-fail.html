@@ -1,0 +1,14 @@
+<!doctype html>
+<html lang="ko">
+<head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>결제 실패 · Trade Checker</title><meta name="robots" content="noindex"></head>
+<body style="font-family:system-ui,sans-serif;display:flex;align-items:center;justify-content:center;min-height:100vh;margin:0;color:#0B1A2E">
+<p>결제 화면으로 돌아갑니다…</p>
+<script>
+  var q = new URLSearchParams(location.search);
+  try {
+    sessionStorage.setItem('tc.pay', JSON.stringify({ status: 'fail', code: q.get('code'), message: q.get('message'), orderId: q.get('orderId') }));
+  } catch (e) {}
+  location.replace('/app/#/payment/result');
+</script>
+</body>
+</html>

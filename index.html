@@ -1,0 +1,562 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Trade Checker — 처음 만난 바이어의 리스크를 3초 만에</title>
+<meta name="description" content="회사명 하나로 전 세계 관세 통관 이력·파산 기록·법적 분쟁을 3초 만에 확인하고 무역 안전 등급(A~F)과 맞춤 결제 조건을 받는 해외영업팀의 B2B 바이어 신용 검증 솔루션.">
+<meta name="theme-color" content="#0B1A2E">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Trade Checker — 처음 만난 바이어의 리스크를 3초 만에">
+<meta property="og:description" content="회사명 하나로 전 세계 관세 통관 이력·파산 기록·법적 분쟁을 3초 만에 확인하고 무역 안전 등급(A~F)과 맞춤 결제 조건을 받는 해외영업팀의 B2B 바이어 신용 검증 솔루션.">
+<meta property="og:image" content="/assets/img/photo01-sales.jpg">
+<link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+KR:wght@400;500;600;700&amp;family=IBM+Plex+Mono:wght@500;600&amp;display=swap" rel="stylesheet">
+<style>
+body{margin:0;background:#F5F7FB}
+a{color:#1D5BD6}a:hover{color:#123F99}
+@keyframes fcFloat{0%,100%{transform:translateY(0)}50%{transform:translateY(-10px)}}
+@keyframes fcPulse{0%,100%{opacity:1}50%{opacity:.4}}
+@keyframes fcMarquee{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+@keyframes fcFill{from{width:0}}
+@keyframes fcStamp{0%{transform:scale(1.7) rotate(-8deg);opacity:0}55%{transform:scale(.92) rotate(-8deg);opacity:1}100%{transform:scale(1) rotate(-8deg);opacity:1}}
+@keyframes fcType{0%{width:0}55%{width:100%}100%{width:100%}}
+@keyframes fcBlink{50%{border-color:transparent}}
+@keyframes fcScan{0%{top:0}100%{top:calc(100% - 2px)}}
+@keyframes fcZoom{from{transform:scale(1.06)}to{transform:scale(1)}}
+html{-webkit-text-size-adjust:100%}
+a,button{transition:background-color .2s,color .2s,box-shadow .2s,transform .2s}
+.tc-lift{transition:transform .3s ease,box-shadow .3s ease}
+@media (hover:hover){.tc-lift:hover{transform:translateY(-6px);box-shadow:0 30px 60px -34px rgba(11,26,46,.45)}.tc-btn:hover{transform:translateY(-1px);box-shadow:0 14px 28px -12px rgba(29,91,214,.65)}}
+input:focus{outline:none}
+form:focus-within{box-shadow:0 0 0 4px rgba(29,91,214,.18),0 18px 40px -28px rgba(11,26,46,.45) !important;border-color:#1D5BD6 !important}
+.tc-menu{display:none;position:relative}
+.tc-menu>summary{list-style:none;cursor:pointer}
+.tc-menu>summary::-webkit-details-marker{display:none}
+.tc-swipe{display:none}
+@media (max-width: 960px){
+.tc-nav-links{display:none !important}
+.tc-menu{display:block}
+.tc-header{flex-wrap:nowrap !important}
+}
+@media (max-width: 960px) and (min-width: 561px){
+.tc-cases,.tc-pricing{grid-template-columns:repeat(2,minmax(0,1fr)) !important}
+.tc-cases>:last-child,.tc-pricing>:last-child{grid-column:1/-1}
+.tc-cases>:last-child img{aspect-ratio:21/9 !important}
+}
+@media (max-width: 960px){
+.tc-trust-grid{grid-template-columns:repeat(2,minmax(0,1fr)) !important}
+}
+@media (max-width: 760px){
+.tc-grade-grid{grid-template-columns:repeat(2,minmax(0,1fr)) !important}
+.tc-grade-grid>:last-child{grid-column:1/-1}
+}
+@media (max-width: 560px){
+.tc-trust-grid{grid-template-columns:1fr !important}
+.tc-nav-cta{display:none !important}
+.tc-hero-visual{padding:0 !important}
+.tc-hero-card{position:relative !important;width:auto !important;margin:-64px 14px 0 !important}
+.tc-chip{right:12px !important;top:12px !important;font-size:12px !important;padding:8px 12px !important}
+.tc-chip2{right:12px !important;top:58px !important;font-size:12px !important;padding:8px 12px !important}
+.tc-hero-btn{flex:1 1 100% !important}
+.tc-swipe{display:block}
+.tc-grade-card{padding:20px !important}
+.tc-price-card{padding:28px !important}
+.tc-hide-sm{display:none !important}
+}
+
+/* ---- 가입 없이 체험 섹션 ---- */
+.tt-wrap{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.1fr);gap:28px;align-items:start}
+@media (max-width:900px){.tt-wrap{grid-template-columns:1fr}}
+.tt-panel{background:#fff;border:1px solid #E5EAF3;border-radius:28px;padding:clamp(22px,3vw,32px);display:flex;flex-direction:column;gap:22px}
+.tt-step{display:flex;flex-direction:column;gap:10px}
+.tt-step>span{font-size:13px;font-weight:700;color:#1D5BD6;letter-spacing:.04em}
+.tt-chips{display:flex;flex-wrap:wrap;gap:8px}
+.tt-chip{display:inline-flex;flex-direction:column;align-items:flex-start;gap:1px;border:1.5px solid #D5DCE6;background:#fff;color:#0B1A2E;border-radius:14px;padding:10px 14px;font:inherit;font-size:14.5px;font-weight:600;cursor:pointer;min-height:44px;text-align:left;transition:border-color .2s,background-color .2s}
+.tt-chip small{font-size:12px;font-weight:500;color:#566273}
+.tt-chip:hover{border-color:#1D5BD6}
+.tt-chip[aria-pressed="true"]{background:#0B1A2E;border-color:#0B1A2E;color:#fff}
+.tt-chip[aria-pressed="true"] small{color:#C9D6EE}
+.tt-range{display:flex;flex-direction:column;gap:8px}
+.tt-range input{width:100%;accent-color:#1D5BD6;height:44px;margin:0}
+.tt-range .val{font-size:26px;font-weight:700;letter-spacing:-.02em;font-variant-numeric:tabular-nums}
+.tt-range .ends{display:flex;justify-content:space-between;font-size:12px;color:#566273}
+.tt-result{background:#0E2342;color:#fff;border-radius:28px;padding:clamp(22px,3vw,32px);display:flex;flex-direction:column;gap:14px;box-shadow:0 40px 80px -48px rgba(11,26,46,.8)}
+.tt-head{display:flex;gap:16px;align-items:center}
+.tt-grade{width:72px;height:72px;flex:0 0 72px;border-radius:18px;display:flex;flex-direction:column;align-items:center;justify-content:center;line-height:1}
+.tt-grade b{font-size:40px}.tt-grade small{font-size:11px;font-weight:600;margin-top:3px}
+.g-A{background:#1D5BD6;color:#fff}.g-B{background:#8FB3F5;color:#0B1A2E}.g-C{background:#F6E3C6;color:#8A4E05}.g-D{background:#C2531F;color:#fff}.g-F{background:#fff;color:#8E2418}
+.tt-name{display:block;font-size:18px}
+.tt-sum{display:block;font-size:13.5px;color:#C9D6EE;line-height:1.55;margin-top:4px}
+.tt-verdict{padding:12px 14px;border-radius:12px;font-size:14.5px;line-height:1.55;background:rgba(143,179,245,.16);color:#DCE6FB}
+.tt-verdict.warn{background:rgba(240,179,92,.16);color:#F7D9A8}
+.tt-verdict.danger{background:rgba(231,106,90,.18);color:#F7C3BA}
+.tt-row{display:flex;justify-content:space-between;gap:12px;font-size:14px;color:#C9D6EE;margin-top:4px}
+.tt-row b{color:#fff;font-size:17px;font-variant-numeric:tabular-nums;white-space:nowrap}
+.tt-row b.bad{color:#FFB4A6}
+.tt-bar{height:12px;border-radius:6px;background:rgba(255,255,255,.1);overflow:hidden}
+.tt-bar span{display:block;height:100%;border-radius:6px;transition:width .4s ease}
+.tt-note{margin:4px 0 0;font-size:13px;color:#A9BBDB;line-height:1.6}
+.tt-note b{color:#fff}
+.tt-go{align-self:flex-start;margin-top:4px;display:inline-flex;align-items:center;min-height:46px;padding:0 20px;border-radius:999px;background:#fff;color:#0B1A2E !important;font-weight:700;text-decoration:none}
+/* ---- 모바일 하단 고정 버튼 ---- */
+.sticky-cta{display:none}
+@media (max-width:760px){
+.sticky-cta{display:flex;gap:8px;position:fixed;left:12px;right:12px;bottom:calc(12px + env(safe-area-inset-bottom));z-index:60;padding:8px;background:rgba(11,26,46,.94);border-radius:999px;box-shadow:0 16px 36px -14px rgba(11,26,46,.7);transform:translateY(140%);transition:transform .3s ease}
+.sticky-cta.show{transform:none}
+.sticky-cta a{flex:1;display:flex;align-items:center;justify-content:center;min-height:46px;border-radius:999px;font-weight:700;font-size:15px;text-decoration:none}
+.sticky-cta a.p{background:#1D5BD6;color:#fff}
+.sticky-cta a.s{color:#DCE6FB;flex:0 0 auto;padding:0 16px}
+footer{padding-bottom:84px}
+}
+.tc-nav-links a{padding:10px 2px}
+@media (prefers-reduced-motion: reduce){*{animation:none !important}}
+</style>
+<style>html{scroll-behavior:smooth}body{overflow-x:hidden}</style>
+</head>
+<body>
+<div style="font-family: 'IBM Plex Sans KR', sans-serif; color: #0B1A2E; background: #F5F7FB; width: 100%; word-break: keep-all">
+
+<!-- ANNOUNCEMENT -->
+<div style="background: #0B1A2E; color: #E6E9EE; font-size: 14px">
+<div style="max-width: 1240px; margin: 0 auto; padding: 10px 24px; display: flex; flex-wrap: wrap; gap: 8px 14px; justify-content: center; align-items: center">
+<span style="font-family: 'IBM Plex Mono', monospace; font-size: 11px; font-weight: 600; color: #FFFFFF; background: #1D5BD6; padding: 3px 8px; border-radius: 4px; letter-spacing: 0.06em">OPEN</span>
+<span>정식 출시 기념 — 가입만 해도 바이어 리포트 3건 무료, 카드 등록 필요 없음</span>
+<a href="#pricing" style="color: #8FB3F5; font-weight: 600; text-decoration: none; padding: 12px 6px; display: inline-block">요금제 보기 →</a>
+</div>
+</div>
+
+<!-- NAV -->
+<header style="position: relative; z-index: 40; background: #FFFFFF; border-bottom: 1px solid #E5EAF3">
+<div class="tc-header" style="max-width: 1240px; margin: 0 auto; padding: 14px 24px; display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 16px">
+<a href="#top" style="display: flex; align-items: center; gap: 10px; text-decoration: none; color: #0B1A2E">
+<svg width="36" height="36" viewBox="0 0 32 32" fill="none" aria-hidden="true"><rect width="32" height="32" rx="9" fill="#0B1A2E"/><path d="M16 6.5 8.5 9.3v5.4c0 4.8 3.2 8.1 7.5 9.4 4.3-1.3 7.5-4.6 7.5-9.4V9.3L16 6.5Z" fill="#1D5BD6"/><path d="m12.4 15.6 2.6 2.6 4.9-5" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+<span style="display: flex; flex-direction: column; line-height: 1.15"><span style="font-weight: 700; font-size: 19px; letter-spacing: -0.02em">Trade Checker</span><span style="font-size: 10.5px; color: #566273; letter-spacing: 0.12em">BUYER CREDIT VERIFICATION</span></span>
+</a>
+<nav class="tc-nav-links" aria-label="주요 메뉴" style="display: flex; flex-wrap: wrap; gap: 28px; font-size: 15px; font-weight: 500">
+<a href="#try" style="color: #1D5BD6; text-decoration: none; font-weight: 700">바로 체험</a>
+<a href="#how" style="color: #2B3645; text-decoration: none">작동 방식</a>
+<a href="#report" style="color: #2B3645; text-decoration: none">리포트</a>
+<a href="#grades" style="color: #2B3645; text-decoration: none">안전 등급</a>
+<a href="#cases" style="color: #2B3645; text-decoration: none">활용 사례</a>
+<a href="#pricing" style="color: #2B3645; text-decoration: none">요금제</a>
+<a href="#faq" style="color: #2B3645; text-decoration: none">FAQ</a>
+</nav>
+<div style="display: flex; gap: 8px; align-items: center">
+<div class="tc-nav-cta" style="display: flex; gap: 8px; align-items: center">
+<a href="/login.html" style="padding: 12px 14px; font-size: 15px; font-weight: 600; color: #0B1A2E; text-decoration: none">로그인</a>
+<a class="tc-btn" href="/login.html?mode=signup" style="padding: 12px 20px; font-size: 15px; font-weight: 600; color: #FFFFFF; background: #1D5BD6; border-radius: 999px; text-decoration: none; box-shadow: 0 10px 22px -14px rgba(29,91,214,.7)">무료로 시작</a>
+</div>
+<details class="tc-menu">
+<summary aria-label="메뉴 열기" style="width: 44px; height: 44px; border-radius: 12px; border: 1px solid #DDE2E8; display: flex; align-items: center; justify-content: center"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16" stroke="#0B1A2E" stroke-width="2" stroke-linecap="round"/></svg></summary>
+<div style="position: absolute; right: 0; top: 54px; width: min(300px, calc(100vw - 32px)); background: #FFFFFF; border: 1px solid #E5EAF3; border-radius: 18px; box-shadow: 0 24px 48px -20px rgba(11,26,46,0.35); padding: 10px; display: flex; flex-direction: column; z-index: 50">
+<a href="#try" style="padding: 13px 14px; border-radius: 10px; color: #1D5BD6; font-weight: 700; text-decoration: none">바로 체험</a>
+<a href="#how" style="padding: 13px 14px; border-radius: 10px; color: #0B1A2E; font-weight: 500; text-decoration: none">작동 방식</a>
+<a href="#report" style="padding: 13px 14px; border-radius: 10px; color: #0B1A2E; font-weight: 500; text-decoration: none">리포트</a>
+<a href="#grades" style="padding: 13px 14px; border-radius: 10px; color: #0B1A2E; font-weight: 500; text-decoration: none">안전 등급</a>
+<a href="#cases" style="padding: 13px 14px; border-radius: 10px; color: #0B1A2E; font-weight: 500; text-decoration: none">활용 사례</a>
+<a href="#pricing" style="padding: 13px 14px; border-radius: 10px; color: #0B1A2E; font-weight: 500; text-decoration: none">요금제</a>
+<a href="#faq" style="padding: 13px 14px; border-radius: 10px; color: #0B1A2E; font-weight: 500; text-decoration: none">FAQ</a>
+<div style="height: 1px; background: #EEF1F4; margin: 6px 4px"></div>
+<a href="/login.html" style="padding: 13px 14px; border-radius: 10px; color: #0B1A2E; font-weight: 600; text-decoration: none">로그인</a>
+<a href="/login.html?mode=signup" style="margin-top: 4px; padding: 14px; border-radius: 999px; background: #1D5BD6; color: #FFFFFF; font-weight: 600; text-align: center; text-decoration: none">무료로 시작</a>
+</div>
+</details>
+</div>
+</div>
+</header>
+
+<!-- HERO -->
+<section id="top" style="background: radial-gradient(900px 520px at 88% 18%, #E3ECFD 0%, rgba(227,236,253,0) 70%), radial-gradient(700px 420px at 0% 100%, #F0F4FC 0%, rgba(240,244,252,0) 70%), #FFFFFF; overflow: hidden">
+<div style="max-width: 1240px; margin: 0 auto; padding: clamp(44px, 7vw, 88px) 24px clamp(64px, 8vw, 104px); display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 360px), 1fr)); gap: clamp(40px, 6vw, 72px); align-items: center">
+<div style="display: flex; flex-direction: column; gap: 30px">
+<span style="align-self: flex-start; display: flex; align-items: center; gap: 8px; font-size: 14px; font-weight: 600; color: #1D5BD6; background: #E7EEFD; padding: 8px 14px; border-radius: 999px"><span style="width: 8px; height: 8px; border-radius: 50%; background: #1D5BD6; animation: fcPulse 1.6s ease-in-out infinite"></span>해외영업팀을 위한 B2B 바이어 신용 검증</span>
+<h1 style="margin: 0; font-size: clamp(42px, 5vw, 66px); line-height: 1.14; letter-spacing: -0.045em; font-weight: 700">처음 만난 바이어,<br>선적 전에 <span style="color: #1D5BD6">3초</span>만<br>확인하세요.</h1>
+<p style="margin: 0; font-size: 19px; line-height: 1.75; color: #2B3645; max-width: 540px">회사명·웹사이트·이메일 한 번 입력으로 법인 실재, 제재·사기 명단, 신용·소송·파산, 통관 기록을 동시에 확인합니다. 결과는 <strong style="color: #0B1A2E">무역 안전 등급(A~F)</strong>과 <strong style="color: #0B1A2E">바로 쓰는 결제 조건 가이드</strong>로 정리됩니다.</p>
+<form action="/app/" method="get" style="display: flex; flex-direction: column; gap: 10px; max-width: 560px">
+<label for="fc-q" style="font-size: 14px; font-weight: 600; color: #2B3645">바이어 영문 회사명 · 사업자번호 · URL</label>
+<div style="display: flex; flex-wrap: wrap; gap: 8px; background: #FFFFFF; border: 1.5px solid #C5CBD3; border-radius: 18px; padding: 8px; box-shadow: 0 18px 40px -28px rgba(11,26,46,0.45)">
+<div style="flex: 1 1 260px; min-width: 0; display: flex; align-items: center; padding: 0 10px; gap: 4px">
+<svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true" style="flex: 0 0 18px"><circle cx="11" cy="11" r="7" stroke="#566273" stroke-width="2"/><path d="m20 20-4-4" stroke="#566273" stroke-width="2" stroke-linecap="round"/></svg>
+<input id="fc-q" name="q" type="text" required minlength="2" placeholder="Northwind Global Trading LLC" style="flex: 1; min-width: 0; border: 0; background: transparent; font: inherit; font-size: 16px; padding: 12px 8px; color: #0B1A2E">
+</div>
+<button class="tc-hero-btn tc-btn" type="submit" style="min-height: 52px; padding: 0 26px; border: 0; border-radius: 12px; background: #1D5BD6; color: #FFFFFF; font: inherit; font-size: 16px; font-weight: 600; cursor: pointer">안전 등급 조회</button>
+</div>
+</form>
+<div style="display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 10px; max-width: 560px">
+<div style="display: flex; flex-direction: column; gap: 4px; padding: 14px 16px; background: rgba(255,255,255,0.8); border: 1px solid #E5EAF3; border-radius: 16px"><strong style="font-size: 22px; letter-spacing: -0.02em; color: #0B1A2E">3초</strong><span style="font-size: 13px; color: #566273">리포트 생성</span></div>
+<div style="display: flex; flex-direction: column; gap: 4px; padding: 14px 16px; background: rgba(255,255,255,0.8); border: 1px solid #E5EAF3; border-radius: 16px"><strong style="font-size: 22px; letter-spacing: -0.02em; color: #0B1A2E">A~F</strong><span style="font-size: 13px; color: #566273">5단계 안전 등급</span></div>
+<div style="display: flex; flex-direction: column; gap: 4px; padding: 14px 16px; background: rgba(255,255,255,0.8); border: 1px solid #E5EAF3; border-radius: 16px"><strong style="font-size: 22px; letter-spacing: -0.02em; color: #0B1A2E">3건 무료</strong><span style="font-size: 13px; color: #566273">카드 등록 없이</span></div>
+</div>
+</div>
+
+<div class="tc-hero-visual" style="position: relative; padding: 0 0 56px 44px">
+<div style="position: relative; border-radius: 30px; overflow: hidden; box-shadow: 0 50px 90px -50px rgba(11,26,46,0.6)">
+<img src="/assets/img/photo01-sales.jpg" alt="야경이 보이는 사무실에서 노트북으로 바이어 리포트를 확인하는 해외영업 담당자" style="display: block; width: 100%; aspect-ratio: 4 / 3.3; object-fit: cover; animation: fcZoom 2.4s ease-out both">
+</div>
+<div class="tc-hero-card" style="position: absolute; left: 0; bottom: 0; width: 336px; background: #FFFFFF; border-radius: 20px; box-shadow: 0 30px 60px -24px rgba(11,26,46,0.5); overflow: hidden; animation: fcFloat 5s ease-in-out infinite">
+<div style="position: relative; padding: 18px 20px; display: flex; gap: 14px; align-items: center; border-bottom: 1px solid #EEF1F4">
+<div style="width: 64px; height: 64px; flex: 0 0 64px; border-radius: 18px; background: #F6E3C6; display: flex; align-items: center; justify-content: center"><span style="font-size: 38px; font-weight: 700; color: #8A4E05; animation: fcStamp 0.9s ease-out both 0.6s">C</span></div>
+<div style="display: flex; flex-direction: column; gap: 3px; min-width: 0"><strong style="font-size: 15px">Northwind Global Trading</strong><span style="font-size: 12px; color: #566273">UAE · 샘플 리포트 · 2.8초</span></div>
+<span style="position: absolute; left: 0; right: 0; height: 2px; background: #1D5BD6; opacity: 0.55; animation: fcScan 2.6s linear infinite"></span>
+</div>
+<div style="padding: 14px 20px 16px; display: flex; flex-direction: column; gap: 10px; font-size: 13px">
+<div style="display: flex; flex-direction: column; gap: 5px"><span style="display: flex; justify-content: space-between"><span>통관 이력</span><span style="color: #1D5BD6; font-weight: 600">양호</span></span><span style="height: 6px; border-radius: 3px; background: #E6E9EE; overflow: hidden; display: block"><span style="display: block; height: 100%; width: 78%; background: #1D5BD6; animation: fcFill 1.6s ease-out both"></span></span></div>
+<div style="display: flex; flex-direction: column; gap: 5px"><span style="display: flex; justify-content: space-between"><span>법적 분쟁</span><span style="color: #B4500F; font-weight: 600">주의</span></span><span style="height: 6px; border-radius: 3px; background: #E6E9EE; overflow: hidden; display: block"><span style="display: block; height: 100%; width: 42%; background: #D98A1C; animation: fcFill 1.9s ease-out both"></span></span></div>
+<div style="display: flex; flex-direction: column; gap: 5px"><span style="display: flex; justify-content: space-between"><span>재무 안정성</span><span style="color: #1D5BD6; font-weight: 600">보통</span></span><span style="height: 6px; border-radius: 3px; background: #E6E9EE; overflow: hidden; display: block"><span style="display: block; height: 100%; width: 60%; background: #5B8BD0; animation: fcFill 2.2s ease-out both"></span></span></div>
+</div>
+<div style="background: #0B1A2E; color: #FFFFFF; padding: 13px 20px; font-size: 13px">권장 결제 조건 · <strong>L/C 또는 100% 선결제</strong></div>
+</div>
+<div class="tc-chip" style="position: absolute; right: -10px; top: 28px; background: #FFFFFF; border-radius: 999px; padding: 10px 16px; box-shadow: 0 16px 32px -16px rgba(11,26,46,0.45); display: flex; gap: 8px; align-items: center; font-size: 14px; font-weight: 600; animation: fcFloat 6s ease-in-out infinite 0.8s"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true"><circle cx="12" cy="12" r="10" fill="#1D5BD6"/><path d="m7.5 12.5 3 3 6-6.5" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>사기 신고 이력 없음</div>
+<div class="tc-chip2" style="position: absolute; right: 20px; top: 44%; background: #FFFFFF; border-radius: 999px; padding: 10px 16px; box-shadow: 0 16px 32px -16px rgba(11,26,46,0.45); display: flex; gap: 8px; align-items: center; font-size: 14px; font-weight: 600; animation: fcFloat 5.4s ease-in-out infinite 1.6s"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M12 3 2 20h20L12 3Z" fill="#D98A1C"/><path d="M12 10v4m0 3v.2" stroke="#0B1A2E" stroke-width="2" stroke-linecap="round"/></svg>대금 소송 1건 감지</div>
+</div>
+</div>
+</section>
+
+<!-- MARQUEE -->
+<section aria-label="조회 데이터 출처" style="background: #FFFFFF; color: #2B3645; overflow: hidden; border-top: 1px solid #E5EAF3; border-bottom: 1px solid #E5EAF3">
+<div style="display: flex; width: max-content; animation: fcMarquee 34s linear infinite">
+<div style="display: flex; gap: 52px; padding: 22px 26px; font-size: 16px; white-space: nowrap">
+<span>글로벌 신용평가 데이터</span><span style="color: #1D5BD6">◆</span><span>각국 관세청 통관 기록</span><span style="color: #1D5BD6">◆</span><span>현지 법원 판결·소송</span><span style="color: #1D5BD6">◆</span><span>파산·회생 공고</span><span style="color: #1D5BD6">◆</span><span>기업 등기·주소 정보</span><span style="color: #1D5BD6">◆</span><span>도메인·웹사이트 이력</span><span style="color: #1D5BD6">◆</span><span>무역 사기 신고 DB</span><span style="color: #1D5BD6">◆</span>
+</div>
+<div aria-hidden="true" style="display: flex; gap: 52px; padding: 22px 26px; font-size: 16px; white-space: nowrap">
+<span>글로벌 신용평가 데이터</span><span style="color: #1D5BD6">◆</span><span>각국 관세청 통관 기록</span><span style="color: #1D5BD6">◆</span><span>현지 법원 판결·소송</span><span style="color: #1D5BD6">◆</span><span>파산·회생 공고</span><span style="color: #1D5BD6">◆</span><span>기업 등기·주소 정보</span><span style="color: #1D5BD6">◆</span><span>도메인·웹사이트 이력</span><span style="color: #1D5BD6">◆</span><span>무역 사기 신고 DB</span><span style="color: #1D5BD6">◆</span>
+</div>
+</div>
+</section>
+
+<!-- PROBLEM -->
+<section style="max-width: 1240px; margin: 0 auto; padding: clamp(72px, 10vw, 128px) 24px clamp(64px, 9vw, 112px)">
+<div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 360px), 1fr)); gap: 72px; align-items: center">
+<div style="position: relative; border-radius: 28px; overflow: hidden">
+<img loading="lazy" src="/assets/img/photo03-fair.jpg" alt="전시회 부스에서 한국인 영업 담당자와 중동 바이어가 악수하는 모습" style="display: block; width: 100%; aspect-ratio: 4 / 3.2; object-fit: cover">
+<div style="position: absolute; left: 20px; right: 20px; bottom: 20px; background: rgba(255,255,255,0.95); border-radius: 18px; padding: 16px 20px; display: flex; gap: 14px; align-items: center">
+<span style="width: 40px; height: 40px; flex: 0 0 40px; border-radius: 12px; background: #1D5BD6; display: flex; align-items: center; justify-content: center"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true"><circle cx="12" cy="12" r="9" stroke="#fff" stroke-width="2"/><path d="M12 7v5l3 2" stroke="#fff" stroke-width="2" stroke-linecap="round"/></svg></span>
+<span style="font-size: 15px; line-height: 1.55"><strong>악수는 3초, 확인도 3초.</strong><br><span style="color: #3B4757">명함을 받은 그 자리에서 바로 조회하세요.</span></span>
+</div>
+</div>
+<div style="display: flex; flex-direction: column; gap: 24px">
+<span style="align-self: flex-start; display: inline-flex; align-items: center; gap: 8px; font-size: 13px; font-weight: 600; color: #1D5BD6; letter-spacing: 0.06em; background: #E7EEFD; padding: 7px 14px; border-radius: 999px"><span style="width: 6px; height: 6px; border-radius: 50%; background: #1D5BD6"></span>WHY TRADE CHECKER</span>
+<h2 style="margin: 0; font-size: clamp(30px, 3.4vw, 44px); line-height: 1.3; letter-spacing: -0.035em">계약은 영업이 따오지만,<br>대금 사고의 책임도 영업이 집니다.</h2>
+<p style="margin: 0; font-size: 17px; line-height: 1.85; color: #2B3645">알리바바와 전시회에서 처음 연락 온 바이어가 TT 후불을 요구할 때, 지금까지 판단 근거는 홈페이지 몇 장과 메일 말투가 전부였습니다. 해외영업 담당자들이 반복해서 털어놓는 고민은 세 가지로 모입니다.</p>
+<div style="display: flex; flex-direction: column; gap: 12px">
+<div style="display: flex; gap: 16px; padding: 18px 22px; background: #FFFFFF; border: 1px solid #E5EAF3; border-radius: 18px"><span style="font-family: 'IBM Plex Mono', monospace; font-weight: 600; color: #1D5BD6">01</span><span style="font-size: 16px; line-height: 1.65">“신규 바이어가 선적 후에 <strong>잠수 타면</strong> 어쩌나 항상 조마조마해요.”</span></div>
+<div style="display: flex; gap: 16px; padding: 18px 22px; background: #FFFFFF; border: 1px solid #E5EAF3; border-radius: 18px"><span style="font-family: 'IBM Plex Mono', monospace; font-weight: 600; color: #1D5BD6">02</span><span style="font-size: 16px; line-height: 1.65">“진짜 재무 상태나 <strong>과거 무역 분쟁 이력</strong>을 확인할 방법이 마땅치 않아요.”</span></div>
+<div style="display: flex; gap: 16px; padding: 18px 22px; background: #FFFFFF; border: 1px solid #E5EAF3; border-radius: 18px"><span style="font-family: 'IBM Plex Mono', monospace; font-weight: 600; color: #1D5BD6">03</span><span style="font-size: 16px; line-height: 1.65">“사기 건이 터지면 <strong>위에서 문책</strong>당할까 봐 결재 올릴 때마다 불안합니다.”</span></div>
+</div>
+</div>
+</div>
+
+<div style="margin-top: clamp(56px, 8vw, 88px); background: #FFFFFF; border: 1px solid #E5EAF3; border-radius: 28px; padding: clamp(22px, 4vw, 44px)">
+<div style="display: flex; flex-wrap: wrap; justify-content: space-between; gap: 16px; margin-bottom: 32px; align-items: baseline">
+<h3 style="margin: 0; font-size: 24px; letter-spacing: -0.02em">대금 사고는 대부분 이렇게 시작됩니다</h3>
+<span style="font-size: 14px; color: #566273">Trade Checker는 ② 단계에서 개입합니다</span>
+</div>
+<ol style="list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 200px), 1fr)); gap: 16px">
+<li style="display: flex; flex-direction: column; gap: 10px; padding: 22px; border-radius: 18px; background: #F5F7FB"><span style="font-family: 'IBM Plex Mono', monospace; font-size: 13px; color: #566273">① 첫 문의</span><strong style="font-size: 17px">대량 주문 제안</strong><span style="font-size: 14px; line-height: 1.6; color: #2B3645">“3컨테이너 정기 발주 원합니다”</span></li>
+<li style="display: flex; flex-direction: column; gap: 10px; padding: 22px; border-radius: 18px; background: #E7EEFD; outline: 2px solid #1D5BD6; outline-offset: -2px"><span style="font-family: 'IBM Plex Mono', monospace; font-size: 13px; color: #1D5BD6; font-weight: 600">② 결제 조건 · 여기서 확인</span><strong style="font-size: 17px">후불 요청</strong><span style="font-size: 14px; line-height: 1.6; color: #2B3645">“첫 거래니 B/L 후 60일 TT로”</span></li>
+<li style="display: flex; flex-direction: column; gap: 10px; padding: 22px; border-radius: 18px; background: #F5F7FB"><span style="font-family: 'IBM Plex Mono', monospace; font-size: 13px; color: #566273">③ 선적</span><strong style="font-size: 17px">물품 출항</strong><span style="font-size: 14px; line-height: 1.6; color: #2B3645">협상력이 바이어에게 넘어갑니다</span></li>
+<li style="display: flex; flex-direction: column; gap: 10px; padding: 22px; border-radius: 18px; background: #FBEFE2"><span style="font-family: 'IBM Plex Mono', monospace; font-size: 13px; color: #8A4E05">④ 연락 두절</span><strong style="font-size: 17px">대금 미회수</strong><span style="font-size: 14px; line-height: 1.6; color: #2B3645">메일 읽음, 답장 없음</span></li>
+</ol>
+</div>
+</section>
+
+<!-- HOW -->
+<section id="how" style="background: #FFFFFF; border-top: 1px solid #E5EAF3; border-bottom: 1px solid #E5EAF3">
+<div style="max-width: 1240px; margin: 0 auto; padding: clamp(72px, 10vw, 128px) 24px">
+<div style="display: flex; flex-direction: column; gap: 16px; margin-bottom: 56px; max-width: 760px">
+<span style="align-self: flex-start; display: inline-flex; align-items: center; gap: 8px; font-size: 13px; font-weight: 600; color: #1D5BD6; letter-spacing: 0.06em; background: #E7EEFD; padding: 7px 14px; border-radius: 999px"><span style="width: 6px; height: 6px; border-radius: 50%; background: #1D5BD6"></span>HOW IT WORKS</span>
+<h2 style="margin: 0; font-size: clamp(30px, 3.4vw, 44px); line-height: 1.3; letter-spacing: -0.035em">조회 → 진단 → 방어.<br>세 단계면 협상 카드가 손에 쥐어집니다.</h2>
+</div>
+<div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 320px), 1fr)); gap: 24px">
+
+<div class="tc-lift" style="display: flex; flex-direction: column; border-radius: 28px; background: #F5F7FB; overflow: hidden; border: 1px solid #E5EAF3">
+<div style="padding: 28px; height: 230px; box-sizing: border-box; display: flex; flex-direction: column; justify-content: center; gap: 12px; background: #E9EDF2">
+<div style="background: #FFFFFF; border-radius: 12px; padding: 14px 16px; display: flex; align-items: center; gap: 10px; box-shadow: 0 10px 24px -16px rgba(11,26,46,0.4)">
+<svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><circle cx="11" cy="11" r="7" stroke="#566273" stroke-width="2"/><path d="m20 20-4-4" stroke="#566273" stroke-width="2" stroke-linecap="round"/></svg>
+<span style="display: inline-block; overflow: hidden; white-space: nowrap; font-family: 'IBM Plex Mono', monospace; font-size: 14px; border-right: 2px solid #1D5BD6; animation: fcType 4s steps(24) infinite, fcBlink 0.8s step-end infinite">northwind-global.ae</span>
+</div>
+<div style="display: flex; flex-direction: column; gap: 6px; padding: 0 4px">
+<span style="font-size: 12px; color: #566273">유사 법인 후보 2건</span>
+<div style="background: #FFFFFF; border-radius: 8px; padding: 8px 12px; font-size: 13px; border: 1px solid #1D5BD6">Northwind Global Trading LLC · UAE</div>
+<div style="background: #FFFFFF; border-radius: 8px; padding: 8px 12px; font-size: 13px; color: #566273">Northwind Trading FZE · UAE</div>
+</div>
+</div>
+<div style="padding: 28px; display: flex; flex-direction: column; gap: 12px">
+<span style="font-family: 'IBM Plex Mono', monospace; font-size: 13px; color: #1D5BD6; font-weight: 600">STEP 01 · 조회</span>
+<strong style="font-size: 21px">바이어 검색</strong>
+<p style="margin: 0; font-size: 15px; line-height: 1.75; color: #2B3645">새로 컨택해 온 바이어의 영문 회사명, 사업자등록번호, URL 중 아는 것 하나만 입력하세요. 철자가 조금 달라도 유사 법인을 함께 찾아 국가·주소로 비교해 보여줍니다.</p>
+</div>
+</div>
+
+<div class="tc-lift" style="display: flex; flex-direction: column; border-radius: 28px; background: #F5F7FB; overflow: hidden; border: 1px solid #E5EAF3">
+<div style="padding: 24px 28px; height: 230px; box-sizing: border-box; display: flex; flex-direction: column; justify-content: center; gap: 11px; background: #E9EDF2; font-size: 13px">
+<div style="display: flex; align-items: center; gap: 10px"><span style="width: 92px">관세 통관</span><span style="flex: 1; height: 8px; background: #FFFFFF; border-radius: 4px; overflow: hidden; display: block"><span style="display: block; height: 100%; width: 100%; background: #1D5BD6; animation: fcFill 1.2s ease-out both"></span></span><span style="font-family: 'IBM Plex Mono', monospace; width: 36px; text-align: right">OK</span></div>
+<div style="display: flex; align-items: center; gap: 10px"><span style="width: 92px">법원 기록</span><span style="flex: 1; height: 8px; background: #FFFFFF; border-radius: 4px; overflow: hidden; display: block"><span style="display: block; height: 100%; width: 100%; background: #D98A1C; animation: fcFill 1.7s ease-out both"></span></span><span style="font-family: 'IBM Plex Mono', monospace; width: 36px; text-align: right; color: #B4500F">1건</span></div>
+<div style="display: flex; align-items: center; gap: 10px"><span style="width: 92px">파산·회생</span><span style="flex: 1; height: 8px; background: #FFFFFF; border-radius: 4px; overflow: hidden; display: block"><span style="display: block; height: 100%; width: 100%; background: #1D5BD6; animation: fcFill 2.1s ease-out both"></span></span><span style="font-family: 'IBM Plex Mono', monospace; width: 36px; text-align: right">OK</span></div>
+<div style="display: flex; align-items: center; gap: 10px"><span style="width: 92px">신용평가</span><span style="flex: 1; height: 8px; background: #FFFFFF; border-radius: 4px; overflow: hidden; display: block"><span style="display: block; height: 100%; width: 100%; background: #1D5BD6; animation: fcFill 2.5s ease-out both"></span></span><span style="font-family: 'IBM Plex Mono', monospace; width: 36px; text-align: right">OK</span></div>
+<div style="display: flex; align-items: center; gap: 10px"><span style="width: 92px">사기 신고</span><span style="flex: 1; height: 8px; background: #FFFFFF; border-radius: 4px; overflow: hidden; display: block"><span style="display: block; height: 100%; width: 100%; background: #1D5BD6; animation: fcFill 2.9s ease-out both"></span></span><span style="font-family: 'IBM Plex Mono', monospace; width: 36px; text-align: right">OK</span></div>
+</div>
+<div style="padding: 28px; display: flex; flex-direction: column; gap: 12px">
+<span style="font-family: 'IBM Plex Mono', monospace; font-size: 13px; color: #1D5BD6; font-weight: 600">STEP 02 · 진단</span>
+<strong style="font-size: 21px">실시간 교차 확인 리포트</strong>
+<p style="margin: 0; font-size: 15px; line-height: 1.75; color: #2B3645">법인 등록부, 제재·수출통제 명단, 신용평가, 통관 기록을 동시에 조회해 교차 확인합니다. 확인하지 못한 항목은 '정보 제한'으로 솔직하게 표시하고 등급도 보수적으로 매깁니다. 결과는 무역 안전 등급(A~F)과 사기 이력 유무로 즉시 요약되고, 항목별 근거가 함께 붙습니다.</p>
+</div>
+</div>
+
+<div class="tc-lift" style="display: flex; flex-direction: column; border-radius: 28px; background: #F5F7FB; overflow: hidden; border: 1px solid #E5EAF3">
+<div style="padding: 28px; height: 230px; box-sizing: border-box; display: flex; align-items: center; justify-content: center; background: #E9EDF2">
+<div style="position: relative; width: 100%; background: #0B1A2E; color: #FFFFFF; border-radius: 14px; padding: 20px; display: flex; flex-direction: column; gap: 8px">
+<span style="font-family: 'IBM Plex Mono', monospace; font-size: 12px; color: #8FB3F5">PAYMENT GUIDE</span>
+<strong style="font-size: 17px; line-height: 1.5">TT 후불 ✕<br>L/C at sight 또는 100% 선결제 ✓</strong>
+<span style="font-size: 12px; color: #C5CBD3">영문 협상 문구 복사 가능</span>
+<span style="position: absolute; right: 16px; top: 16px; border: 2px solid #D98A1C; color: #D98A1C; font-weight: 700; font-size: 14px; padding: 4px 10px; border-radius: 6px; animation: fcStamp 1s ease-out both 0.4s">C · 주의</span>
+</div>
+</div>
+<div style="padding: 28px; display: flex; flex-direction: column; gap: 12px">
+<span style="font-family: 'IBM Plex Mono', monospace; font-size: 13px; color: #1D5BD6; font-weight: 600">STEP 03 · 방어</span>
+<strong style="font-size: 21px">결제 조건 가이드</strong>
+<p style="margin: 0; font-size: 15px; line-height: 1.75; color: #2B3645">“안전 등급 C이므로 TT 후불 대신 L/C 또는 100% 선결제로 방어하세요.” 등급에 맞는 조건과 바이어에게 그대로 보낼 수 있는 영문 문구까지 처방합니다.</p>
+</div>
+</div>
+
+</div>
+</div>
+</section>
+
+<!-- TRY -->
+<section id="try" style="background: linear-gradient(180deg, #F5F7FB 0%, #EAF0FB 100%); border-top: 1px solid #E5EAF3">
+<div style="max-width: 1240px; margin: 0 auto; padding: clamp(72px, 10vw, 128px) 24px; display: flex; flex-direction: column; gap: 40px">
+<div style="display: flex; flex-wrap: wrap; justify-content: space-between; gap: 20px; align-items: flex-end">
+<div style="display: flex; flex-direction: column; gap: 16px; max-width: 680px">
+<span style="align-self: flex-start; display: inline-flex; align-items: center; gap: 8px; font-size: 13px; font-weight: 600; color: #1D5BD6; letter-spacing: 0.06em; background: #E7EEFD; padding: 7px 14px; border-radius: 999px"><span style="width: 6px; height: 6px; border-radius: 50%; background: #1D5BD6"></span>가입 없이 바로 체험</span>
+<h2 style="margin: 0; font-size: clamp(30px, 3.4vw, 44px); line-height: 1.3; letter-spacing: -0.035em">이 조건으로 보내면,<br>얼마를 못 받을 수 있을까요?</h2>
+<p style="margin: 0; font-size: 17px; line-height: 1.8; color: #2B3645">바이어와 거래 금액, 바이어가 요청한 결제 조건을 골라 보세요. 등급과 함께 <b>떼일 수 있는 금액</b>을 바로 계산해 드립니다. 다른 신용조회 서비스는 점수만 주지만, Trade Checker는 금액으로 말합니다.</p>
+</div>
+</div>
+<div class="tt-wrap">
+<div class="tt-panel">
+<div class="tt-step"><span>1 · 바이어 고르기 (샘플)</span><div class="tt-chips" id="tryBuyers"></div></div>
+<div class="tt-step"><span>2 · 거래 금액</span><div class="tt-range"><label for="tryAmt" style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)">거래 금액</label><span class="val" id="tryAmtOut">USD 100,000</span><input id="tryAmt" type="range" min="10000" max="500000" step="10000" value="100000"><span class="ends"><span>1만 달러</span><span>50만 달러</span></span></div></div>
+<div class="tt-step"><span>3 · 바이어가 요청한 결제 조건</span><div class="tt-chips" id="tryTerms"></div></div>
+</div>
+<div class="tt-result" id="tryOut" aria-live="polite"></div>
+</div>
+</div>
+</section>
+
+<!-- REPORT ANATOMY -->
+<section id="report" style="max-width: 1240px; margin: 0 auto; padding: clamp(72px, 10vw, 128px) 24px">
+<div style="display: flex; flex-direction: column; gap: 16px; margin-bottom: 56px; max-width: 760px">
+<span style="align-self: flex-start; display: inline-flex; align-items: center; gap: 8px; font-size: 13px; font-weight: 600; color: #1D5BD6; letter-spacing: 0.06em; background: #E7EEFD; padding: 7px 14px; border-radius: 999px"><span style="width: 6px; height: 6px; border-radius: 50%; background: #1D5BD6"></span>REPORT ANATOMY</span>
+<h2 style="margin: 0; font-size: clamp(30px, 3.4vw, 44px); line-height: 1.3; letter-spacing: -0.035em">리포트 한 장에 담긴 것</h2>
+<p style="margin: 0; font-size: 17px; line-height: 1.8; color: #2B3645">결론부터 근거까지, 팀장님이 묻기 전에 답이 준비되어 있도록 설계했습니다.</p>
+</div>
+<div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 380px), 1fr)); gap: 56px; align-items: start">
+<div style="background: #FFFFFF; border: 1px solid #E5EAF3; border-radius: 28px; box-shadow: 0 50px 90px -56px rgba(11,26,46,0.5); overflow: hidden">
+<div style="display: flex; flex-wrap: wrap; gap: 4px 12px; justify-content: space-between; align-items: center; padding: 14px 22px; background: #0B1A2E; color: #C5CBD3; font-family: 'IBM Plex Mono', monospace; font-size: 12px"><span>TRADE CHECKER REPORT</span><span>2026-10-13 17:42 KST</span></div>
+<div style="padding: 22px; display: flex; gap: 16px; align-items: center; border-bottom: 1px solid #EEF1F4"><span style="width: 26px; height: 26px; flex: 0 0 26px; border-radius: 50%; background: #1D5BD6; color: #FFFFFF; font-size: 13px; font-weight: 700; display: flex; align-items: center; justify-content: center">1</span><div style="display: flex; flex-direction: column; gap: 4px; min-width: 0"><strong style="font-size: 17px">Northwind Global Trading LLC</strong><span style="font-size: 13px; color: #566273">UAE · 도매 무역 · northwind-global.ae</span></div></div>
+<div style="padding: 22px; display: flex; gap: 16px; align-items: center; border-bottom: 1px solid #EEF1F4"><span style="width: 26px; height: 26px; flex: 0 0 26px; border-radius: 50%; background: #1D5BD6; color: #FFFFFF; font-size: 13px; font-weight: 700; display: flex; align-items: center; justify-content: center">2</span><div style="width: 72px; height: 72px; border-radius: 18px; background: #F6E3C6; display: flex; flex-direction: column; align-items: center; justify-content: center"><span style="font-size: 40px; font-weight: 700; color: #8A4E05; line-height: 1">C</span><span style="font-size: 11px; font-weight: 600; color: #8A4E05">주의</span></div><span style="font-size: 14px; line-height: 1.6; color: #2B3645">실거래 흔적은 확인되나 대금 관련 소송이 진행 중입니다.</span></div>
+<div style="padding: 18px 22px; display: flex; gap: 16px; border-bottom: 1px solid #EEF1F4"><span style="width: 26px; height: 26px; flex: 0 0 26px; border-radius: 50%; background: #1D5BD6; color: #FFFFFF; font-size: 13px; font-weight: 700; display: flex; align-items: center; justify-content: center">3</span><div style="flex: 1; display: flex; flex-direction: column; gap: 8px"><span style="font-size: 13px; font-weight: 600; color: #566273">월별 통관 건수 (최근 12개월, 예시)</span><svg viewBox="0 0 240 64" width="100%" height="64" role="img" aria-label="최근 12개월 통관 건수 예시 막대 차트"><rect x="2" y="34" width="14" height="30" rx="2" fill="#8FB3F5"/><rect x="22" y="28" width="14" height="36" rx="2" fill="#8FB3F5"/><rect x="42" y="40" width="14" height="24" rx="2" fill="#8FB3F5"/><rect x="62" y="22" width="14" height="42" rx="2" fill="#8FB3F5"/><rect x="82" y="30" width="14" height="34" rx="2" fill="#8FB3F5"/><rect x="102" y="18" width="14" height="46" rx="2" fill="#8FB3F5"/><rect x="122" y="26" width="14" height="38" rx="2" fill="#8FB3F5"/><rect x="142" y="36" width="14" height="28" rx="2" fill="#8FB3F5"/><rect x="162" y="20" width="14" height="44" rx="2" fill="#8FB3F5"/><rect x="182" y="14" width="14" height="50" rx="2" fill="#1D5BD6"/><rect x="202" y="24" width="14" height="40" rx="2" fill="#1D5BD6"/><rect x="222" y="10" width="14" height="54" rx="2" fill="#1D5BD6"/></svg></div></div>
+<div style="padding: 18px 22px; display: flex; gap: 16px; border-bottom: 1px solid #EEF1F4"><span style="width: 26px; height: 26px; flex: 0 0 26px; border-radius: 50%; background: #1D5BD6; color: #FFFFFF; font-size: 13px; font-weight: 700; display: flex; align-items: center; justify-content: center">4</span><div style="flex: 1; display: flex; flex-direction: column; gap: 8px; font-size: 14px"><div style="display: flex; justify-content: space-between; gap: 12px"><span>파산·회생 기록</span><strong style="color: #1D5BD6">없음</strong></div><div style="display: flex; justify-content: space-between; gap: 12px"><span>대금 관련 소송</span><strong style="color: #B4500F">1건 · 진행 중</strong></div><div style="display: flex; justify-content: space-between; gap: 12px"><span>무역 사기 신고</span><strong style="color: #1D5BD6">없음</strong></div></div></div>
+<div style="padding: 18px 22px; display: flex; gap: 16px; border-bottom: 1px solid #EEF1F4"><span style="width: 26px; height: 26px; flex: 0 0 26px; border-radius: 50%; background: #1D5BD6; color: #FFFFFF; font-size: 13px; font-weight: 700; display: flex; align-items: center; justify-content: center">5</span><div style="flex: 1; background: #0B1A2E; color: #FFFFFF; border-radius: 12px; padding: 14px 16px; font-size: 14px; line-height: 1.6">L/C at sight 또는 100% 선결제 권장 · 첫 거래 성사 후 조건 재검토</div></div>
+<div style="padding: 16px 22px; display: flex; gap: 16px; align-items: center"><span style="width: 26px; height: 26px; flex: 0 0 26px; border-radius: 50%; background: #1D5BD6; color: #FFFFFF; font-size: 13px; font-weight: 700; display: flex; align-items: center; justify-content: center">6</span><span style="font-size: 13px; color: #566273">출처: 관세 통관 기록 · 현지 법원 · 파산 공고 · 글로벌 신용평가</span></div>
+</div>
+<ol style="list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 24px">
+<li style="display: flex; gap: 16px"><span style="width: 34px; height: 34px; flex: 0 0 34px; border-radius: 50%; border: 2px solid #1D5BD6; color: #1D5BD6; font-weight: 700; display: flex; align-items: center; justify-content: center">1</span><div style="display: flex; flex-direction: column; gap: 6px"><strong style="font-size: 18px">기업 식별 정보</strong><span style="font-size: 15px; line-height: 1.7; color: #2B3645">법인명, 국가, 업종, 등록번호, 도메인을 대조해 ‘이 회사가 정말 그 회사인지’부터 확인합니다.</span></div></li>
+<li style="display: flex; gap: 16px"><span style="width: 34px; height: 34px; flex: 0 0 34px; border-radius: 50%; border: 2px solid #1D5BD6; color: #1D5BD6; font-weight: 700; display: flex; align-items: center; justify-content: center">2</span><div style="display: flex; flex-direction: column; gap: 6px"><strong style="font-size: 18px">무역 안전 등급과 한 줄 요약</strong><span style="font-size: 15px; line-height: 1.7; color: #2B3645">A~F 등급과 판정 이유를 한 문장으로. 결재 보고서 첫 줄에 그대로 옮겨 쓰세요.</span></div></li>
+<li style="display: flex; gap: 16px"><span style="width: 34px; height: 34px; flex: 0 0 34px; border-radius: 50%; border: 2px solid #1D5BD6; color: #1D5BD6; font-weight: 700; display: flex; align-items: center; justify-content: center">3</span><div style="display: flex; flex-direction: column; gap: 6px"><strong style="font-size: 18px">통관 이력 추이</strong><span style="font-size: 15px; line-height: 1.7; color: #2B3645">실제 수입 활동의 규모와 꾸준함을 보여줍니다. 갑자기 활동이 끊긴 회사는 따로 표시됩니다.</span></div></li>
+<li style="display: flex; gap: 16px"><span style="width: 34px; height: 34px; flex: 0 0 34px; border-radius: 50%; border: 2px solid #1D5BD6; color: #1D5BD6; font-weight: 700; display: flex; align-items: center; justify-content: center">4</span><div style="display: flex; flex-direction: column; gap: 6px"><strong style="font-size: 18px">위험 신호 상세</strong><span style="font-size: 15px; line-height: 1.7; color: #2B3645">파산·소송·제재·사기 기록을 항목별로 정리하고 출처와 확인 날짜를 남깁니다. 제재 명단은 원문 링크까지 연결합니다.</span></div></li>
+<li style="display: flex; gap: 16px"><span style="width: 34px; height: 34px; flex: 0 0 34px; border-radius: 50%; border: 2px solid #1D5BD6; color: #1D5BD6; font-weight: 700; display: flex; align-items: center; justify-content: center">5</span><div style="display: flex; flex-direction: column; gap: 6px"><strong style="font-size: 18px">결제 조건 처방</strong><span style="font-size: 15px; line-height: 1.7; color: #2B3645">권장 결제 방식, 선수금 비율, 조건 완화 시점까지 제안합니다.</span></div></li>
+<li style="display: flex; gap: 16px"><span style="width: 34px; height: 34px; flex: 0 0 34px; border-radius: 50%; border: 2px solid #1D5BD6; color: #1D5BD6; font-weight: 700; display: flex; align-items: center; justify-content: center">6</span><div style="display: flex; flex-direction: column; gap: 6px"><strong style="font-size: 18px">근거 출처와 조회 기록</strong><span style="font-size: 15px; line-height: 1.7; color: #2B3645">조회 일시와 데이터 출처가 남아 ‘확인하고 진행했다’는 증빙이 됩니다.</span></div></li>
+</ol>
+</div>
+</section>
+
+<!-- GRADES -->
+<section id="grades" style="background: #0E2342; color: #FFFFFF">
+<div style="max-width: 1240px; margin: 0 auto; padding: clamp(72px, 10vw, 128px) 24px">
+<div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 340px), 1fr)); gap: 40px; margin-bottom: 56px; align-items: end">
+<div style="display: flex; flex-direction: column; gap: 16px">
+<span style="display: flex; align-items: center; gap: 10px; font-size: 14px; font-weight: 600; color: #8FB3F5; letter-spacing: 0.06em"><span style="width: 24px; height: 2px; background: #8FB3F5"></span>TRADE SAFETY GRADE</span>
+<h2 style="margin: 0; font-size: clamp(30px, 3.4vw, 44px); line-height: 1.3; letter-spacing: -0.035em">등급이 곧 결제 조건입니다</h2>
+</div>
+<p style="margin: 0; font-size: 17px; line-height: 1.8; color: #C5CBD3">숫자 점수 대신 현장에서 바로 쓰는 A~F 등급. 등급마다 무엇을 근거로 판단했는지, 어떤 조건을 요구해야 하는지까지 한 세트로 제공합니다.</p>
+</div>
+<div class="tc-grade-grid" style="display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 12px">
+<div class="tc-grade-card" style="background: #13243C; border: 1px solid #22385A; border-radius: 20px; padding: 26px; display: flex; flex-direction: column; gap: 14px"><span style="width: 56px; height: 56px; border-radius: 14px; background: #1D5BD6; font-size: 30px; font-weight: 700; display: flex; align-items: center; justify-content: center">A</span><strong style="font-size: 18px">안정</strong><span style="font-size: 14px; line-height: 1.65; color: #C5CBD3">꾸준한 통관 실적, 분쟁·파산 기록 없음</span><span style="margin-top: auto; padding-top: 14px; border-top: 1px solid #22385A; font-size: 14px; font-weight: 600">TT 후불 가능</span></div>
+<div class="tc-grade-card" style="background: #13243C; border: 1px solid #22385A; border-radius: 20px; padding: 26px; display: flex; flex-direction: column; gap: 14px"><span style="width: 56px; height: 56px; border-radius: 14px; background: #8FB3F5; color: #0B1A2E; font-size: 30px; font-weight: 700; display: flex; align-items: center; justify-content: center">B</span><strong style="font-size: 18px">양호</strong><span style="font-size: 14px; line-height: 1.65; color: #C5CBD3">경미한 지연·소규모 분쟁 이력</span><span style="margin-top: auto; padding-top: 14px; border-top: 1px solid #22385A; font-size: 14px; font-weight: 600">선수금 30% + 잔금 TT</span></div>
+<div class="tc-grade-card" style="background: #13243C; border: 1px solid #D98A1C; border-radius: 20px; padding: 26px; display: flex; flex-direction: column; gap: 14px"><span style="width: 56px; height: 56px; border-radius: 14px; background: #D98A1C; color: #0B1A2E; font-size: 30px; font-weight: 700; display: flex; align-items: center; justify-content: center">C</span><strong style="font-size: 18px">주의</strong><span style="font-size: 14px; line-height: 1.65; color: #C5CBD3">대금 소송 등 분쟁 이력 존재</span><span style="margin-top: auto; padding-top: 14px; border-top: 1px solid #22385A; font-size: 14px; font-weight: 600">L/C 또는 100% 선결제</span></div>
+<div class="tc-grade-card" style="background: #13243C; border: 1px solid #22385A; border-radius: 20px; padding: 26px; display: flex; flex-direction: column; gap: 14px"><span style="width: 56px; height: 56px; border-radius: 14px; background: #C2531F; font-size: 30px; font-weight: 700; display: flex; align-items: center; justify-content: center">D</span><strong style="font-size: 18px">위험</strong><span style="font-size: 14px; line-height: 1.65; color: #C5CBD3">체불 반복, 파산·회생 징후</span><span style="margin-top: auto; padding-top: 14px; border-top: 1px solid #22385A; font-size: 14px; font-weight: 600">100% 선결제만 수락</span></div>
+<div class="tc-grade-card" style="background: #13243C; border: 1px solid #22385A; border-radius: 20px; padding: 26px; display: flex; flex-direction: column; gap: 14px"><span style="width: 56px; height: 56px; border-radius: 14px; background: #FFFFFF; color: #8E2418; font-size: 30px; font-weight: 700; display: flex; align-items: center; justify-content: center">F</span><strong style="font-size: 18px">경보</strong><span style="font-size: 14px; line-height: 1.65; color: #C5CBD3">사기·사칭 정황, 제재 명단 일치</span><span style="margin-top: auto; padding-top: 14px; border-top: 1px solid #22385A; font-size: 14px; font-weight: 600">거래 보류 권장</span></div>
+</div>
+<p style="margin: 28px 0 0; font-size: 13px; color: #9AA6B6">※ 안전 등급은 거래 판단을 돕는 참고 지표이며, 최종 거래 조건은 귀사의 여신 정책에 따라 결정하세요.</p>
+</div>
+</section>
+
+<!-- USE CASES with real photos -->
+<section id="cases" style="max-width: 1240px; margin: 0 auto; padding: clamp(72px, 10vw, 128px) 24px">
+<div style="display: flex; flex-wrap: wrap; justify-content: space-between; gap: 24px; align-items: flex-end; margin-bottom: 56px">
+<div style="display: flex; flex-direction: column; gap: 16px; max-width: 680px">
+<span style="align-self: flex-start; display: inline-flex; align-items: center; gap: 8px; font-size: 13px; font-weight: 600; color: #1D5BD6; letter-spacing: 0.06em; background: #E7EEFD; padding: 7px 14px; border-radius: 999px"><span style="width: 6px; height: 6px; border-radius: 50%; background: #1D5BD6"></span>USE CASES</span>
+<h2 style="margin: 0; font-size: clamp(30px, 3.4vw, 44px); line-height: 1.3; letter-spacing: -0.035em">해외영업의 하루,<br>리스크는 이런 순간에 생깁니다</h2>
+</div>
+<p style="margin: 0; max-width: 380px; font-size: 16px; line-height: 1.75; color: #2B3645">계약 직전부터 선적 대기, 내부 결재까지. 리스크가 생기는 모든 순간에 같은 리포트 한 장이 기준이 됩니다.</p>
+</div>
+<div class="tc-cases" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 300px), 1fr)); gap: 24px">
+<article class="tc-lift" style="background: #FFFFFF; border: 1px solid #E5EAF3; border-radius: 28px; overflow: hidden; display: flex; flex-direction: column">
+<div style="position: relative"><img loading="lazy" src="/assets/img/photo04-contract.jpg" alt="수출 계약서에 펜으로 서명하려는 손과 책상 위의 지구본, 계산기" style="display: block; width: 100%; aspect-ratio: 16 / 11; object-fit: cover"><span style="position: absolute; left: 16px; top: 16px; font-size: 13px; font-weight: 600; color: #0B1A2E; background: rgba(255,255,255,0.94); padding: 6px 12px; border-radius: 999px">계약 직전</span></div>
+<div style="padding: 28px; display: flex; flex-direction: column; gap: 12px">
+<h3 style="margin: 0; font-size: 21px; line-height: 1.4">서명하기 전, 마지막 3초</h3>
+<p style="margin: 0; font-size: 15px; line-height: 1.75; color: #2B3645">계약서에 도장을 찍기 전 등급을 한 번 더 확인하세요. C등급 이하라면 결제 조항을 L/C나 선결제로 바꿔 넣을 근거가 생깁니다.</p>
+</div>
+</article>
+<article class="tc-lift" style="background: #FFFFFF; border: 1px solid #E5EAF3; border-radius: 28px; overflow: hidden; display: flex; flex-direction: column">
+<div style="position: relative"><img loading="lazy" src="/assets/img/photo07-warehouse.jpg" alt="컨테이너와 팔레트가 쌓인 창고에서 서류를 확인하며 걷는 검수 담당자" style="display: block; width: 100%; aspect-ratio: 16 / 11; object-fit: cover"><span style="position: absolute; left: 16px; top: 16px; font-size: 13px; font-weight: 600; color: #0B1A2E; background: rgba(255,255,255,0.94); padding: 6px 12px; border-radius: 999px">선적 대기</span></div>
+<div style="padding: 28px; display: flex; flex-direction: column; gap: 12px">
+<h3 style="margin: 0; font-size: 21px; line-height: 1.4">물건이 창고를 나서기 전에</h3>
+<p style="margin: 0; font-size: 15px; line-height: 1.75; color: #2B3645">거래 중인 바이어를 관심 거래처로 등록하면 매일 자동으로 다시 평가해 등급이 바뀌면 메일로 알려 드립니다(Team). 출고 전에 조건을 다시 조정할 시간을 법니다.</p>
+</div>
+</article>
+<article class="tc-lift" style="background: #FFFFFF; border: 1px solid #E5EAF3; border-radius: 28px; overflow: hidden; display: flex; flex-direction: column">
+<div style="position: relative"><img loading="lazy" src="/assets/img/photo06-team.jpg" alt="밝은 회의실에서 팀장과 팀원이 태블릿으로 리포트를 함께 보며 웃는 모습" style="display: block; width: 100%; aspect-ratio: 16 / 11; object-fit: cover"><span style="position: absolute; left: 16px; top: 16px; font-size: 13px; font-weight: 600; color: #0B1A2E; background: rgba(255,255,255,0.94); padding: 6px 12px; border-radius: 999px">팀장 결재</span></div>
+<div style="padding: 28px; display: flex; flex-direction: column; gap: 12px">
+<h3 style="margin: 0; font-size: 21px; line-height: 1.4">품의서에 리포트를 첨부</h3>
+<p style="margin: 0; font-size: 15px; line-height: 1.75; color: #2B3645">조회 일시와 근거가 남은 PDF를 첨부하면 결재가 빨라지고, 담당자는 ‘확인하고 진행했다’는 근거를 갖게 됩니다.</p>
+</div>
+</article>
+</div>
+</section>
+
+<!-- COMPARISON -->
+<section style="background: #FFFFFF; border-top: 1px solid #E5EAF3; border-bottom: 1px solid #E5EAF3">
+<div style="max-width: 1040px; margin: 0 auto; padding: clamp(72px, 10vw, 128px) 24px">
+<div style="display: flex; flex-direction: column; gap: 16px; margin-bottom: 48px; align-items: center; text-align: center">
+<span style="font-size: 14px; font-weight: 600; color: #1D5BD6; letter-spacing: 0.06em">COMPARE</span>
+<h2 style="margin: 0; font-size: clamp(30px, 3.4vw, 44px); line-height: 1.3; letter-spacing: -0.035em">지금 방식과 비교해 보세요</h2>
+</div>
+<p class="tc-swipe" style="margin: 0 0 12px; font-size: 13px; color: #566273; text-align: right">옆으로 밀어서 비교해 보세요 →</p>
+<div style="overflow-x: auto; border: 1px solid #E5EAF3; border-radius: 20px">
+<table style="width: 100%; min-width: 640px; border-collapse: collapse; font-size: 15px">
+<thead><tr style="background: #F5F7FB"><th scope="col" style="text-align: left; padding: 18px 22px; font-weight: 600; color: #566273; position: sticky; left: 0; background: #F5F7FB">항목</th><th scope="col" style="text-align: left; padding: 18px 22px; font-weight: 600; color: #566273">검색·지인 문의</th><th scope="col" style="text-align: left; padding: 18px 22px; font-weight: 600; color: #566273">신용조사 개별 의뢰</th><th scope="col" style="text-align: left; padding: 18px 22px; font-weight: 700; color: #FFFFFF; background: #1D5BD6">Trade Checker</th></tr></thead>
+<tbody>
+<tr style="border-top: 1px solid #EEF1F4"><th scope="row" style="text-align: left; padding: 18px 22px; font-weight: 600; position: sticky; left: 0; background: #FFFFFF; min-width: 120px">결과까지 걸리는 시간</th><td style="padding: 18px 22px; color: #2B3645">들쭉날쭉</td><td style="padding: 18px 22px; color: #2B3645">며칠 이상 소요되기도</td><td style="padding: 18px 22px; font-weight: 600; background: #E7EEFD">보통 몇 초</td></tr>
+<tr style="border-top: 1px solid #EEF1F4"><th scope="row" style="text-align: left; padding: 18px 22px; font-weight: 600; position: sticky; left: 0; background: #FFFFFF; min-width: 120px">통관·법원·파산 교차 확인</th><td style="padding: 18px 22px; color: #2B3645">부분적</td><td style="padding: 18px 22px; color: #2B3645">보고서 범위에 따라 다름</td><td style="padding: 18px 22px; font-weight: 600; background: #E7EEFD">한 번에 통합</td></tr>
+<tr style="border-top: 1px solid #EEF1F4"><th scope="row" style="text-align: left; padding: 18px 22px; font-weight: 600; position: sticky; left: 0; background: #FFFFFF; min-width: 120px">결제 조건 제안</th><td style="padding: 18px 22px; color: #2B3645">없음</td><td style="padding: 18px 22px; color: #2B3645">직접 해석 필요</td><td style="padding: 18px 22px; font-weight: 600; background: #E7EEFD">등급별 처방 + 영문 문구</td></tr>
+<tr style="border-top: 1px solid #EEF1F4"><th scope="row" style="text-align: left; padding: 18px 22px; font-weight: 600; position: sticky; left: 0; background: #FFFFFF; min-width: 120px">결재용 근거 자료</th><td style="padding: 18px 22px; color: #2B3645">남지 않음</td><td style="padding: 18px 22px; color: #2B3645">보고서 원문</td><td style="padding: 18px 22px; font-weight: 600; background: #E7EEFD">PDF + 조회 기록</td></tr>
+<tr style="border-top: 1px solid #EEF1F4"><th scope="row" style="text-align: left; padding: 18px 22px; font-weight: 600; position: sticky; left: 0; background: #FFFFFF; min-width: 120px">거래 금액별 위험 노출액</th><td style="padding: 18px 22px; color: #2B3645">직접 계산</td><td style="padding: 18px 22px; color: #2B3645">직접 계산</td><td style="padding: 18px 22px; font-weight: 600; background: #E7EEFD">금액·조건 넣으면 자동 계산</td></tr>
+<tr style="border-top: 1px solid #EEF1F4"><th scope="row" style="text-align: left; padding: 18px 22px; font-weight: 600; position: sticky; left: 0; background: #FFFFFF; min-width: 120px">품의서(결재) 문구</th><td style="padding: 18px 22px; color: #2B3645">직접 작성</td><td style="padding: 18px 22px; color: #2B3645">직접 작성</td><td style="padding: 18px 22px; font-weight: 600; background: #E7EEFD">클릭 한 번에 복사</td></tr>
+<tr style="border-top: 1px solid #EEF1F4"><th scope="row" style="text-align: left; padding: 18px 22px; font-weight: 600; position: sticky; left: 0; background: #FFFFFF; min-width: 120px">후보 바이어 비교</th><td style="padding: 18px 22px; color: #2B3645">어려움</td><td style="padding: 18px 22px; color: #2B3645">건별 보고서 대조</td><td style="padding: 18px 22px; font-weight: 600; background: #E7EEFD">최대 3곳 한 화면 비교</td></tr>
+<tr style="border-top: 1px solid #EEF1F4"><th scope="row" style="text-align: left; padding: 18px 22px; font-weight: 600; position: sticky; left: 0; background: #FFFFFF; min-width: 120px">비용</th><td style="padding: 18px 22px; color: #2B3645">시간 비용</td><td style="padding: 18px 22px; color: #2B3645">건별 의뢰비</td><td style="padding: 18px 22px; font-weight: 600; background: #E7EEFD">월 49,000원부터</td></tr>
+</tbody>
+</table>
+</div>
+</div>
+</section>
+
+<!-- TRUST with globe -->
+<section style="position: relative; background: #050C18; color: #FFFFFF; overflow: hidden">
+<img loading="lazy" src="/assets/img/photo08-globe.jpg" alt="" aria-hidden="true" style="position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: right center">
+<div style="position: absolute; inset: 0; background: linear-gradient(90deg, rgba(5,12,24,0.92) 0%, rgba(5,12,24,0.6) 55%, rgba(5,12,24,0.25) 100%)"></div>
+<div style="position: relative; max-width: 1240px; margin: 0 auto; padding: clamp(80px, 11vw, 136px) 24px; display: flex; flex-direction: column; gap: 40px">
+<div style="display: flex; flex-direction: column; gap: 18px; max-width: 600px">
+<span style="display: flex; align-items: center; gap: 10px; font-size: 14px; font-weight: 600; color: #8FB3F5; letter-spacing: 0.06em"><span style="width: 24px; height: 2px; background: #8FB3F5"></span>TRUST &amp; DATA</span>
+<h2 style="margin: 0; font-size: clamp(30px, 3.6vw, 48px); line-height: 1.28; letter-spacing: -0.035em">등급만큼 중요한 건<br>근거의 투명성입니다</h2>
+<p style="margin: 0; font-size: 17px; line-height: 1.8; color: #C5CBD3">판정 결과와 함께 어떤 데이터에서 무엇을 찾았는지 그대로 보여드립니다. 블랙박스 점수가 아니라, 담당자가 설명할 수 있는 근거입니다.</p>
+</div>
+<div style="display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 14px; max-width: 1000px" class="tc-trust-grid">
+<div style="background: rgba(255,255,255,0.07); border: 1px solid rgba(255,255,255,0.16); border-radius: 18px; padding: 24px; display: flex; flex-direction: column; gap: 8px; backdrop-filter: blur(8px)"><strong style="font-size: 17px">출처·기준일 표시</strong><span style="font-size: 14px; line-height: 1.65; color: #C5CBD3">항목마다 확인한 출처와 날짜, 제재 명단은 원문 링크까지</span></div>
+<div style="background: rgba(255,255,255,0.07); border: 1px solid rgba(255,255,255,0.16); border-radius: 18px; padding: 24px; display: flex; flex-direction: column; gap: 8px; backdrop-filter: blur(8px)"><strong style="font-size: 17px">비공개 조회</strong><span style="font-size: 14px; line-height: 1.65; color: #C5CBD3">바이어에게 조회 사실 미통지</span></div>
+<div style="background: rgba(255,255,255,0.07); border: 1px solid rgba(255,255,255,0.16); border-radius: 18px; padding: 24px; display: flex; flex-direction: column; gap: 8px; backdrop-filter: blur(8px)"><strong style="font-size: 17px">정보 제한 표시</strong><span style="font-size: 14px; line-height: 1.65; color: #C5CBD3">데이터가 부족하면 솔직하게 표기</span></div>
+<div style="background: rgba(255,255,255,0.07); border: 1px solid rgba(255,255,255,0.16); border-radius: 18px; padding: 24px; display: flex; flex-direction: column; gap: 8px; backdrop-filter: blur(8px)"><strong style="font-size: 17px">암호화 보관</strong><span style="font-size: 14px; line-height: 1.65; color: #C5CBD3">조회 기록은 회사 계정만 열람</span></div>
+</div>
+</div>
+</section>
+
+<!-- PRICING -->
+<section id="pricing" style="max-width: 1240px; margin: 0 auto; padding: clamp(72px, 10vw, 128px) 24px">
+<div style="display: flex; flex-direction: column; gap: 16px; margin-bottom: 48px; align-items: center; text-align: center">
+<span style="font-size: 14px; font-weight: 600; color: #1D5BD6; letter-spacing: 0.06em">PRICING</span>
+<h2 style="margin: 0; font-size: clamp(30px, 3.4vw, 44px); line-height: 1.3; letter-spacing: -0.035em">사고 한 건의 비용보다 가볍게</h2>
+<p style="margin: 0; font-size: 17px; color: #2B3645">가입하면 리포트 3건 무료 · 연간 결제 시 20% 할인 · 부가세 별도</p>
+</div>
+<div class="tc-pricing" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 290px), 1fr)); gap: 20px; align-items: stretch">
+<div style="background: #FFFFFF; border: 1px solid #E5EAF3; border-radius: 28px; padding: 36px; display: flex; flex-direction: column; gap: 18px" class="tc-price-card">
+<div style="display: flex; flex-direction: column; gap: 6px"><strong style="font-size: 20px">Starter</strong><span style="font-size: 15px; color: #566273">혼자 해외영업을 맡은 담당자</span></div>
+<div style="display: flex; flex-direction: column; gap: 4px"><span style="font-size: 40px; font-weight: 700; letter-spacing: -0.03em">₩49,000<span style="font-size: 15px; font-weight: 500; color: #566273"> / 월</span></span><span style="font-size: 14px; color: #1D5BD6; font-weight: 600">연간 결제 시 월 ₩39,000</span></div>
+<ul style="margin: 0; padding: 18px 0 0; border-top: 1px solid #EEF1F4; list-style: none; display: flex; flex-direction: column; gap: 11px; font-size: 15px; color: #2B3645"><li>✓ 월 20건 바이어 조회</li><li>✓ 사용자 1명</li><li>✓ 안전 등급 + 결제 조건 가이드</li><li>✓ 결재용 PDF 리포트 · 공유 링크</li><li>✓ 추가 10건 ₩30,000 (건당 ₩3,000)</li></ul>
+<a href="/app/#/billing?product=starter_month" style="margin-top: auto; text-align: center; padding: 15px; border-radius: 999px; border: 1.5px solid #0B1A2E; color: #0B1A2E; font-weight: 600; text-decoration: none">시작하기</a>
+</div>
+<div class="tc-price-card" style="position: relative; background: #0B1A2E; color: #FFFFFF; border-radius: 28px; padding: 36px; display: flex; flex-direction: column; gap: 18px; box-shadow: 0 50px 90px -50px rgba(29,91,214,0.7)">
+<span style="position: absolute; top: -14px; left: 36px; font-size: 13px; font-weight: 600; background: #1D5BD6; padding: 6px 14px; border-radius: 999px">가장 많이 선택</span>
+<div style="display: flex; flex-direction: column; gap: 6px"><strong style="font-size: 20px">Team</strong><span style="font-size: 15px; color: #C5CBD3">해외영업팀 단위 운영</span></div>
+<div style="display: flex; flex-direction: column; gap: 4px"><span style="font-size: 40px; font-weight: 700; letter-spacing: -0.03em">₩199,000<span style="font-size: 15px; font-weight: 500; color: #C5CBD3"> / 월</span></span><span style="font-size: 14px; color: #8FB3F5; font-weight: 600">연간 결제 시 월 ₩159,000</span></div>
+<ul style="margin: 0; padding: 18px 0 0; border-top: 1px solid #22385A; list-style: none; display: flex; flex-direction: column; gap: 11px; font-size: 15px; color: #E6E9EE"><li>✓ 월 150건 바이어 조회</li><li>✓ 사용자 5명</li><li>✓ 관심 거래처 50곳 등급 변동 알림</li><li>✓ 팀 조회 기록 공유 · 결재용 공유 링크</li><li>✓ 영문 협상 문구 템플릿</li><li>✓ 추가 10건 ₩20,000 (건당 ₩2,000)</li></ul>
+<a href="/login.html?mode=signup&next=%2Fapp%2F%23%2Fbilling" style="margin-top: auto; text-align: center; padding: 15px; border-radius: 999px; background: #1D5BD6; color: #FFFFFF; font-weight: 600; text-decoration: none">14일 무료 체험</a>
+</div>
+<div style="background: #FFFFFF; border: 1px solid #E5EAF3; border-radius: 28px; padding: 36px; display: flex; flex-direction: column; gap: 18px" class="tc-price-card">
+<div style="display: flex; flex-direction: column; gap: 6px"><strong style="font-size: 20px">Enterprise</strong><span style="font-size: 15px; color: #566273">수출 비중이 큰 중견기업</span></div>
+<div style="display: flex; flex-direction: column; gap: 4px"><span style="font-size: 40px; font-weight: 700; letter-spacing: -0.03em">별도 견적</span><span style="font-size: 14px; color: #566273">연 계약 · 조회량 맞춤</span></div>
+<ul style="margin: 0; padding: 18px 0 0; border-top: 1px solid #EEF1F4; list-style: none; display: flex; flex-direction: column; gap: 11px; font-size: 15px; color: #2B3645"><li>✓ 조회량·사용자 무제한 협의</li><li>✓ 관심 거래처 무제한 모니터링</li><li>✓ ERP·CRM 연동 API</li><li>✓ 사내 여신 정책 맞춤 등급 기준</li><li>✓ 전담 매니저 · SLA</li></ul>
+<a href="mailto:sales@tradechecker.example?subject=Trade%20Checker%20%EB%8F%84%EC%9E%85%20%EC%83%81%EB%8B%B4" style="margin-top: auto; text-align: center; padding: 15px; border-radius: 999px; border: 1.5px solid #0B1A2E; color: #0B1A2E; font-weight: 600; text-decoration: none">도입 상담</a>
+</div>
+</div>
+<div style="margin-top: 20px; background: #FFFFFF; border: 1px dashed #C5CBD3; border-radius: 20px; padding: 22px 28px; display: flex; flex-wrap: wrap; gap: 14px 28px; justify-content: space-between; align-items: center">
+<div style="display: flex; flex-direction: column; gap: 4px"><strong style="font-size: 17px">구독 없이 한 건만 필요하다면</strong><span style="font-size: 15px; color: #2B3645">단건 리포트 ₩9,900 · 결제 즉시 조회 · PDF 포함</span></div>
+<a href="/app/#/billing?product=single" style="padding: 13px 22px; border-radius: 999px; background: #E7EEFD; color: #1D5BD6; font-weight: 600; text-decoration: none">단건 조회하기</a>
+</div>
+</section>
+
+<!-- FAQ -->
+<section id="faq" style="background: #FFFFFF; border-top: 1px solid #E5EAF3">
+<div style="max-width: 1240px; margin: 0 auto; padding: clamp(72px, 10vw, 128px) 24px; display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 320px), 1fr)); gap: 56px">
+<div style="display: flex; flex-direction: column; gap: 16px">
+<span style="align-self: flex-start; display: inline-flex; align-items: center; gap: 8px; font-size: 13px; font-weight: 600; color: #1D5BD6; letter-spacing: 0.06em; background: #E7EEFD; padding: 7px 14px; border-radius: 999px"><span style="width: 6px; height: 6px; border-radius: 50%; background: #1D5BD6"></span>FAQ</span>
+<h2 style="margin: 0; font-size: clamp(30px, 3.4vw, 44px); line-height: 1.3; letter-spacing: -0.035em">자주 묻는 질문</h2>
+<p style="margin: 0; font-size: 16px; line-height: 1.75; color: #2B3645">더 궁금한 점은 <a href="mailto:sales@tradechecker.example?subject=Trade%20Checker%20%EB%8F%84%EC%9E%85%20%EC%83%81%EB%8B%B4">도입 상담</a>으로 문의해 주세요.</p>
+</div>
+<div style="display: flex; flex-direction: column; gap: 12px">
+<details open style="border: 1px solid #E5EAF3; border-radius: 18px"><summary style="font-size: 17px; font-weight: 600; cursor: pointer; padding: 20px 24px; line-height: 1.5">무료 체험이 끝나면 자동으로 결제되나요?</summary><p style="margin: 0; padding: 0 24px 22px; font-size: 15px; line-height: 1.75; color: #2B3645">아니요. 가입 시 제공되는 3건과 Team 14일 체험 모두 카드 등록 없이 시작하며, 직접 플랜을 선택하기 전까지 결제되지 않습니다.</p></details>
+<details style="border: 1px solid #E5EAF3; border-radius: 18px"><summary style="font-size: 17px; font-weight: 600; cursor: pointer; padding: 20px 24px; line-height: 1.5">사업자번호를 모르면 조회할 수 없나요?</summary><p style="margin: 0; padding: 0 24px 22px; font-size: 15px; line-height: 1.75; color: #2B3645">영문 회사명이나 웹사이트 URL만으로도 조회할 수 있습니다. 동명 법인이 여러 개면 국가·주소로 후보를 보여드려 직접 선택합니다.</p></details>
+<details style="border: 1px solid #E5EAF3; border-radius: 18px"><summary style="font-size: 17px; font-weight: 600; cursor: pointer; padding: 20px 24px; line-height: 1.5">어떤 데이터로 등급을 매기나요?</summary><p style="margin: 0; padding: 0 24px 22px; font-size: 15px; line-height: 1.75; color: #2B3645">국제 법인 등록부(GLEIF), 도메인 등록 정보, 미국·EU·UN 등 제재·수출통제 명단, 제휴 신용평가 데이터(신용점수·소송·파산), 통관 기록을 함께 확인합니다. 리포트에는 항목별 출처와 확인 날짜가 표시되고, 확인하지 못한 영역이 많으면 등급을 보수적으로 매깁니다. 등급은 사람이 검토할 수 있는 규칙으로 계산되며, 거래 판단을 돕는 참고 지표입니다.</p></details>
+<details style="border: 1px solid #E5EAF3; border-radius: 18px"><summary style="font-size: 17px; font-weight: 600; cursor: pointer; padding: 20px 24px; line-height: 1.5">바이어가 조회 사실을 알게 되나요?</summary><p style="margin: 0; padding: 0 24px 22px; font-size: 15px; line-height: 1.75; color: #2B3645">아니요. 공개 기록과 제휴 데이터를 바탕으로 조회하므로 바이어에게 별도 통지가 가지 않습니다.</p></details>
+<details style="border: 1px solid #E5EAF3; border-radius: 18px"><summary style="font-size: 17px; font-weight: 600; cursor: pointer; padding: 20px 24px; line-height: 1.5">월 조회 건수를 다 쓰면 어떻게 되나요?</summary><p style="margin: 0; padding: 0 24px 22px; font-size: 15px; line-height: 1.75; color: #2B3645">추가 조회 10건 묶음(Starter ₩30,000, Team ₩20,000)을 사서 이어서 쓸 수 있습니다. 요금제 기본 건수는 다음 달로 이월되지 않지만, 묶음으로 산 건수는 다 쓸 때까지 남습니다.</p></details>
+<details style="border: 1px solid #E5EAF3; border-radius: 18px"><summary style="font-size: 17px; font-weight: 600; cursor: pointer; padding: 20px 24px; line-height: 1.5">등급이 C인데 꼭 거래하고 싶다면요?</summary><p style="margin: 0; padding: 0 24px 22px; font-size: 15px; line-height: 1.75; color: #2B3645">결제 가이드가 L/C, 선수금 비율 조정, 소량 첫 주문 등 거래를 이어가면서 위험을 줄이는 대안 조건을 함께 제시합니다.</p></details>
+<details style="border: 1px solid #E5EAF3; border-radius: 18px"><summary style="font-size: 17px; font-weight: 600; cursor: pointer; padding: 20px 24px; line-height: 1.5">세금계산서 발행이 되나요?</summary><p style="margin: 0; padding: 0 24px 22px; font-size: 15px; line-height: 1.75; color: #2B3645">네. 모든 유료 결제에 전자세금계산서가 발행되며, 연간 결제는 계좌이체도 가능합니다.</p></details>
+</div>
+</div>
+</section>
+
+<!-- FINAL CTA with port photo -->
+<section id="start" style="position: relative; overflow: hidden; color: #FFFFFF">
+<img loading="lazy" src="/assets/img/photo02-port.jpg" alt="" aria-hidden="true" style="position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: center 40%">
+<div style="position: absolute; inset: 0; background: rgba(8,18,34,0.55)"></div>
+<div style="position: relative; max-width: 1240px; margin: 0 auto; padding: clamp(96px, 12vw, 152px) 24px; display: flex; flex-direction: column; align-items: center; text-align: center; gap: 26px">
+<h2 style="margin: 0; font-size: clamp(34px, 4.6vw, 60px); line-height: 1.2; letter-spacing: -0.04em">다음 바이어 메일이 오기 전에,<br>방어막부터 세우세요.</h2>
+<p style="margin: 0; font-size: 19px; line-height: 1.6; color: #E6E9EE">처음 만난 바이어의 리스크를 3초 만에 걸러내는 가장 확실한 방어막.</p>
+<div style="display: flex; flex-wrap: wrap; gap: 12px; justify-content: center">
+<a href="/login.html?mode=signup" style="padding: 18px 34px; background: #FFFFFF; color: #0B1A2E; font-weight: 700; font-size: 17px; border-radius: 999px; text-decoration: none">무료 3건 조회하기</a>
+<a href="#pricing" style="padding: 18px 34px; border: 1.5px solid rgba(255,255,255,0.7); color: #FFFFFF; font-weight: 600; font-size: 17px; border-radius: 999px; text-decoration: none">요금제 비교</a>
+</div>
+</div>
+</section>
+
+<footer style="background: #0B1A2E; color: #9AA6B6">
+<div style="max-width: 1240px; margin: 0 auto; padding: 64px 24px 40px; display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 180px), 1fr)); gap: 32px; font-size: 14px">
+<div style="display: flex; flex-direction: column; gap: 12px"><strong style="color: #FFFFFF; font-size: 18px">Trade Checker</strong><span style="line-height: 1.7">처음 만난 바이어의 리스크를<br>3초 만에 걸러내는 방어막</span></div>
+<div style="display: flex; flex-direction: column; gap: 0"><strong style="color: #FFFFFF; padding-bottom: 6px">제품</strong><a href="#how" style="color: #9AA6B6; text-decoration: none; padding: 10px 0">작동 방식</a><a href="#report" style="color: #9AA6B6; text-decoration: none; padding: 10px 0">리포트</a><a href="#pricing" style="color: #9AA6B6; text-decoration: none; padding: 10px 0">요금제</a></div>
+<div style="display: flex; flex-direction: column; gap: 0"><strong style="color: #FFFFFF; padding-bottom: 6px">지원</strong><a href="#faq" style="color: #9AA6B6; text-decoration: none; padding: 10px 0">FAQ</a><a href="mailto:sales@tradechecker.example?subject=Trade%20Checker%20%EB%8F%84%EC%9E%85%20%EC%83%81%EB%8B%B4" style="color: #9AA6B6; text-decoration: none; padding: 10px 0">도입 상담</a><a href="/terms.html" style="color: #9AA6B6; text-decoration: none; padding: 10px 0">이용약관</a><a href="/privacy.html" style="color: #9AA6B6; text-decoration: none; padding: 10px 0">개인정보처리방침</a></div>
+<div style="display: flex; flex-direction: column; gap: 0"><strong style="color: #FFFFFF; padding-bottom: 6px">회사</strong><span>[회사명] · [주소]</span><span>[대표 이메일]</span></div>
+</div>
+<div style="max-width: 1240px; margin: 0 auto; padding: 24px; border-top: 1px solid #1E3050; display: flex; flex-wrap: wrap; gap: 14px; justify-content: space-between; font-size: 13px">
+<span>#해외영업필수템 #무역사기예방 #바이어신용조회 #대금체불방어 #수출리스크관리</span>
+<span>© 2026 Trade Checker · <a href="/terms.html" style="color: inherit">이용약관</a> · <a href="/privacy.html" style="color: inherit"><b>개인정보처리방침</b></a></span>
+</div>
+</footer>
+<nav class="sticky-cta" id="stickyCta" aria-label="빠른 시작"><a class="s" href="#try">체험</a><a class="p" href="/login.html?mode=signup">무료 3건 조회하기</a></nav>
+</div>
+<script>document.querySelectorAll(".tc-menu a").forEach(function(a){a.addEventListener("click",function(){var d=a.closest("details");if(d)d.open=false;});});document.addEventListener("click",function(e){document.querySelectorAll(".tc-menu[open]").forEach(function(d){if(!d.contains(e.target))d.open=false;});});</script>
+<script type="module" src="/assets/js/landing.js"></script>
+</body>
+</html>

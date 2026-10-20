@@ -1,0 +1,164 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>로그인 · Trade Checker</title>
+<link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+KR:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/assets/css/app.css">
+</head>
+<body>
+<div class="auth-wrap">
+  <aside class="auth-side" aria-hidden="true">
+    <img src="/assets/img/photo03-fair.jpg" alt="">
+    <p class="q">악수는 3초, 확인도 3초.<br>처음 만난 바이어의 리스크를 계약 전에 걸러내세요.</p>
+  </aside>
+  <main class="auth-main">
+    <div class="auth-card">
+      <a class="brand" href="/">
+        <svg width="34" height="34" viewBox="0 0 32 32" fill="none" aria-hidden="true"><rect width="32" height="32" rx="9" fill="#0B1A2E"/><path d="M16 6.5 8.5 9.3v5.4c0 4.8 3.2 8.1 7.5 9.4 4.3-1.3 7.5-4.6 7.5-9.4V9.3L16 6.5Z" fill="#1D5BD6"/><path d="m12.4 15.6 2.6 2.6 4.9-5" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        Trade Checker
+      </a>
+
+      <div id="demo" class="notice" hidden>
+        <span><b>데모 모드</b> — 아직 회원 DB(Supabase)가 연결되지 않았습니다. 로그인 없이 샘플 데이터로 바로 체험할 수 있어요.</span>
+      </div>
+      <a id="demoGo" class="btn btn-primary btn-block" href="/app/" hidden>로그인 없이 체험하기</a>
+
+      <section id="authBox" hidden>
+        <div class="tabs" role="tablist" aria-label="로그인 또는 회원가입">
+          <button type="button" role="tab" id="tabIn" class="on" aria-selected="true">로그인</button>
+          <button type="button" role="tab" id="tabUp" aria-selected="false">회원가입</button>
+        </div>
+        <form id="form" style="display:flex;flex-direction:column;gap:14px;margin-top:20px" novalidate>
+          <h1 id="title" style="font-size:26px">다시 오신 걸 환영합니다</h1>
+          <p id="sub" class="muted" style="margin:0;font-size:15px">회사 이메일로 로그인하세요.</p>
+          <div class="field"><label for="email">이메일</label><input class="input" id="email" type="email" autocomplete="email" required></div>
+          <div class="field" id="pwField"><label for="pw">비밀번호</label><input class="input" id="pw" type="password" autocomplete="current-password" minlength="6" required></div>
+          <div id="msg" class="notice" role="status" hidden></div>
+          <button class="btn btn-primary btn-block" id="submit" type="submit">로그인</button>
+          <button class="btn btn-ghost btn-block btn-sm" id="forgot" type="button">비밀번호를 잊으셨나요?</button>
+          <p id="terms" class="muted" style="font-size:12.5px;margin:0" hidden>가입하면 <a href="/terms.html" target="_blank">이용약관</a>과 <a href="/privacy.html" target="_blank">개인정보처리방침</a>에 동의하는 것으로 봅니다. 가입 즉시 리포트 3건을 무료로 드려요.</p>
+        </form>
+      </section>
+
+      <section id="resetBox" hidden>
+        <form id="resetForm" style="display:flex;flex-direction:column;gap:14px">
+          <h1 style="font-size:24px">새 비밀번호 설정</h1>
+          <div class="field"><label for="pw2">새 비밀번호 (6자 이상)</label><input class="input" id="pw2" type="password" autocomplete="new-password" minlength="6" required></div>
+          <div id="msg2" class="notice" role="status" hidden></div>
+          <button class="btn btn-primary btn-block" type="submit">비밀번호 변경</button>
+        </form>
+      </section>
+    </div>
+  </main>
+</div>
+<script type="module">
+import { loadConfig, signIn, signUp, sendReset, updatePassword, sessionFromUrlHash, getSession } from '/assets/js/client.js';
+
+const $ = (id) => document.getElementById(id);
+let mode = new URLSearchParams(location.search).get('mode') === 'signup' ? 'up' : 'in';
+const next = new URLSearchParams(location.search).get('next') || '/app/';
+// 같은 사이트 안의 주소로만 돌아가기 (/\evil.com 같은 우회 차단)
+const safeNext = (() => {
+  try {
+    const u = new URL(next, location.origin);
+    return u.origin === location.origin ? u.pathname + u.search + u.hash : '/app/';
+  } catch { return '/app/'; }
+})();
+
+function show(el, text, kind = '') {
+  el.hidden = !text;
+  el.className = 'notice' + (kind ? ' ' + kind : '');
+  el.textContent = text || '';
+}
+
+function setMode(m) {
+  mode = m;
+  $('tabIn').classList.toggle('on', m === 'in');
+  $('tabUp').classList.toggle('on', m === 'up');
+  $('tabIn').setAttribute('aria-selected', m === 'in');
+  $('tabUp').setAttribute('aria-selected', m === 'up');
+  $('title').textContent = m === 'in' ? '다시 오신 걸 환영합니다' : '3초 만에 첫 바이어를 확인하세요';
+  $('sub').textContent = m === 'in' ? '회사 이메일로 로그인하세요.' : '카드 등록 없이 가입하고 리포트 3건을 무료로 받으세요.';
+  $('submit').textContent = m === 'in' ? '로그인' : '무료로 가입하기';
+  $('pw').autocomplete = m === 'in' ? 'current-password' : 'new-password';
+  $('forgot').hidden = m !== 'in';
+  $('terms').hidden = m !== 'up';
+  show($('msg'), '');
+}
+
+const cfg = await loadConfig();
+if (cfg.mode !== 'live') {
+  $('demo').hidden = false;
+  $('demoGo').hidden = false;
+} else {
+  $('authBox').hidden = false;
+  setMode(mode);
+  try {
+    const fromLink = await sessionFromUrlHash();
+    if (fromLink?.type === 'recovery') { $('authBox').hidden = true; $('resetBox').hidden = false; }
+    else if (fromLink?.session) {
+      // 링크로 로그인된 계정을 한 번 보여 주고 넘어감 (내가 모르는 계정으로 로그인되는 것을 알아차릴 수 있게)
+      const em = fromLink.session.user?.email || '';
+      show($('msg'), `이메일 인증이 끝났습니다. ${em ? em + ' 계정으로 ' : ''}로그인했습니다.`, 'ok');
+      [...$('form').children].forEach((el) => { if (el.id !== 'msg') el.hidden = true; });
+      document.querySelectorAll('.tabs, [role=tablist]').forEach((el) => (el.hidden = true));
+      const go = document.createElement('a');
+      go.className = 'btn btn-primary btn-block'; go.href = safeNext; go.textContent = '시작하기';
+      $('msg').after(go);
+    }
+    else if (getSession()) location.replace(safeNext);
+  } catch (e) { show($('msg'), e.message, 'danger'); }
+}
+
+$('tabIn').onclick = () => setMode('in');
+$('tabUp').onclick = () => setMode('up');
+
+$('form').onsubmit = async (e) => {
+  e.preventDefault();
+  const email = $('email').value.trim();
+  const pw = $('pw').value;
+  if (!/^\S+@\S+\.\S+$/.test(email)) return show($('msg'), '이메일 주소를 확인해 주세요.', 'warn');
+  if (pw.length < 6) return show($('msg'), '비밀번호는 6자 이상이어야 합니다.', 'warn');
+  $('submit').disabled = true;
+  try {
+    if (mode === 'in') {
+      await signIn(email, pw);
+      location.replace(safeNext);
+    } else {
+      const r = await signUp(email, pw, location.origin + '/login.html');
+      if (r.session) location.replace(safeNext);
+      else show($('msg'), `${email} 로 인증 메일을 보냈습니다. 메일의 링크를 누르면 바로 시작할 수 있어요.`);
+    }
+  } catch (err) {
+    show($('msg'), err.message, 'danger');
+  } finally {
+    $('submit').disabled = false;
+  }
+};
+
+$('forgot').onclick = async () => {
+  const email = $('email').value.trim();
+  if (!/^\S+@\S+\.\S+$/.test(email)) return show($('msg'), '비밀번호를 재설정할 이메일을 먼저 입력해 주세요.', 'warn');
+  try {
+    await sendReset(email, location.origin + '/login.html');
+    show($('msg'), '비밀번호 재설정 링크를 메일로 보냈습니다.');
+  } catch (err) { show($('msg'), err.message, 'danger'); }
+};
+
+$('resetForm').onsubmit = async (e) => {
+  e.preventDefault();
+  const pw = $('pw2').value;
+  if (pw.length < 6) return show($('msg2'), '비밀번호는 6자 이상이어야 합니다.', 'warn');
+  try {
+    await updatePassword(pw);
+    show($('msg2'), '비밀번호를 바꿨습니다. 잠시 후 이동합니다.');
+    setTimeout(() => location.replace(safeNext), 900);
+  } catch (err) { show($('msg2'), err.message, 'danger'); }
+};
+</script>
+</body>
+</html>
