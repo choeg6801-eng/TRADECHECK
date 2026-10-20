@@ -50,9 +50,9 @@ with sync_playwright() as p:
         # 전체 리포트 보기 → 앱
         pg.locator('#try').scroll_into_view_if_needed()
         pg.click('#tryOut .tt-go')
-        pg.wait_for_selector('.candidate', timeout=8000)
+        pg.wait_for_selector('.candidate, #dealAmt', timeout=8000)  # 정확한 이름이면 바로 리포트
         assert pg.locator('#appShell').is_visible() and not pg.locator('#landing').is_visible()
-        pg.locator('.candidate').first.click()
+        if pg.locator('.candidate').count(): pg.locator('.candidate').first.click()
         pg.wait_for_url(re.compile(r'#/report/'), timeout=10000)
         expect(pg.locator('.report-id h1')).to_have_text('Northwind Global Trading LLC')
         ok(f'{tag} 체험 → 앱 전환 → 후보 선택 → 리포트')

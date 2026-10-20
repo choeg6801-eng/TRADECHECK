@@ -177,6 +177,18 @@ await test('리뷰 반영: allowPaid=false 이면 유료 출처(제재 명단)�
   assert.equal(p.sanctions, null);
 });
 
+await test('후보 순서: 입력한 이름과 같은 법인이 맨 앞', async () => {
+  const c = await live.searchCompanies('acme global trading fze');
+  assert.match(c[0].name, /FZE/);
+  const c2 = await live.searchCompanies('acme global trading llc');
+  assert.match(c2[0].name, /L\.L\.C/);
+});
+
+await test('업종은 회사명으로 추정해 "추정"이라고 표시', async () => {
+  const p = await live.getProfile('lei:CREDIT000000000000D4', { now: NOW, allowPaid: false });
+  assert.match(p.company.industry, /기계·설비.*추정/);
+});
+
 await test('잘못된 id는 null', async () => {
   assert.equal(await live.getProfile('xx:1'), null);
   assert.equal(await live.getProfile('q:%%%'), null);

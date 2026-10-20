@@ -84,7 +84,7 @@ with sync_playwright() as p:
     for path in ['/app/#/search', '/app/#/billing', '/login.html']:
         mp.goto(D + path); mp.wait_for_timeout(700)
         assert not overflow(mp), 'overflow ' + path
-    mp.goto(D + '/app/#/search'); mp.fill('#q', 'Northwind Global Trading LLC'); mp.click('#searchForm button[type=submit]')
+    mp.goto(D + '/app/#/search'); mp.fill('#q', 'Northwind'); mp.click('#searchForm button[type=submit]')
     mp.wait_for_selector('.candidate', timeout=8000); mp.locator('.candidate').first.tap()
     mp.wait_for_url(re.compile(r'#/report/'), timeout=10000); mp.wait_for_timeout(300)
     assert not overflow(mp), 'overflow report mobile'

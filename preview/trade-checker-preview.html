@@ -985,7 +985,7 @@ return { VAT_RATE, PLANS, FREE_SIGNUP_CREDITS, PRODUCTS, amountWithVat, productA
 })();
 
 __mods["/lib/countries.js"] = (() => {
-// 국가 코드(ISO 3166-1 alpha-2) ↔ 한국어 이름. 수출 거래가 많은 국가 위주.
+// 국가 코드(ISO 3166-1 alpha-2) ↔ 한국어 이름 · 영문 이름 · 별칭
 const COUNTRIES = {
   US: '미국', CN: '중국', JP: '일본', VN: '베트남', HK: '홍콩', TW: '대만', IN: '인도', ID: '인도네시아', TH: '태국', MY: '말레이시아',
   SG: '싱가포르', PH: '필리핀', AU: '호주', NZ: '뉴질랜드', CA: '캐나다', MX: '멕시코', BR: '브라질', CL: '칠레', PE: '페루', CO: '콜롬비아', AR: '아르헨티나',
@@ -994,14 +994,31 @@ const COUNTRIES = {
   TR: '튀르키예', RU: '러시아', UA: '우크라이나', KZ: '카자흐스탄', UZ: '우즈베키스탄', AE: '아랍에미리트', SA: '사우디아라비아', QA: '카타르', KW: '쿠웨이트',
   IL: '이스라엘', IR: '이란', IQ: '이라크', JO: '요르단', EG: '이집트', NG: '나이지리아', ZA: '남아프리카공화국', KE: '케냐', MA: '모로코', GH: '가나',
   PK: '파키스탄', BD: '방글라데시', LK: '스리랑카', MM: '미얀마', KH: '캄보디아', MN: '몽골', KR: '대한민국',
+  LU: '룩셈부르크', LI: '리히텐슈타인', MC: '모나코', MT: '몰타', CY: '키프로스', IS: '아이슬란드', EE: '에스토니아', LV: '라트비아', LT: '리투아니아',
+  SK: '슬로바키아', SI: '슬로베니아', HR: '크로아티아', RS: '세르비아', BG: '불가리아', BY: '벨라루스', GE: '조지아', AZ: '아제르바이잔', AM: '아르메니아',
+  OM: '오만', BH: '바레인', LB: '레바논', SY: '시리아', YE: '예멘', AF: '아프가니스탄', NP: '네팔', LA: '라오스', BN: '브루나이', MO: '마카오', KP: '북한',
+  DZ: '알제리', TN: '튀니지', LY: '리비아', ET: '에티오피아', TZ: '탄자니아', UG: '우간다', AO: '앙골라', CI: '코트디부아르', SN: '세네갈', CM: '카메룬',
+  VE: '베네수엘라', EC: '에콰도르', BO: '볼리비아', PY: '파라과이', UY: '우루과이', PA: '파나마', CR: '코스타리카', GT: '과테말라', DO: '도미니카공화국', CU: '쿠바',
+  KY: '케이맨제도', VG: '영국령 버진아일랜드', BM: '버뮤다', JE: '저지섬', GG: '건지섬', IM: '맨섬', BS: '바하마', MH: '마셜제도',
 };
 
+// 영문 국가명·흔한 별칭 → 코드
 const ALIASES = {
-  uae: 'AE', usa: 'US', uk: 'GB', 'united states': 'US', 'united kingdom': 'GB', england: 'GB', dubai: 'AE', korea: 'KR',
-  germany: 'DE', china: 'CN', japan: 'JP', vietnam: 'VN', india: 'IN', turkey: 'TR', turkiye: 'TR', 'saudi arabia': 'SA', ksa: 'SA',
-  netherlands: 'NL', holland: 'NL', france: 'FR', italy: 'IT', spain: 'ES', mexico: 'MX', brazil: 'BR', indonesia: 'ID', egypt: 'EG', nigeria: 'NG',
-  poland: 'PL', switzerland: 'CH', canada: 'CA', australia: 'AU', singapore: 'SG', 'hong kong': 'HK', thailand: 'TH', malaysia: 'MY', philippines: 'PH',
-  '두바이': 'AE', '사우디': 'SA', '네덜란드': 'NL', '터키': 'TR',
+  'united states': 'US', usa: 'US', us: 'US', america: 'US', 'united kingdom': 'GB', uk: 'GB', britain: 'GB', 'great britain': 'GB', england: 'GB',
+  uae: 'AE', 'united arab emirates': 'AE', emirates: 'AE', dubai: 'AE', 'abu dhabi': 'AE', korea: 'KR', 'south korea': 'KR',
+  germany: 'DE', deutschland: 'DE', china: 'CN', prc: 'CN', japan: 'JP', vietnam: 'VN', 'viet nam': 'VN', india: 'IN', turkey: 'TR', turkiye: 'TR', 'türkiye': 'TR',
+  'saudi arabia': 'SA', saudi: 'SA', ksa: 'SA', netherlands: 'NL', holland: 'NL', 'the netherlands': 'NL', france: 'FR', italy: 'IT', spain: 'ES', mexico: 'MX',
+  brazil: 'BR', indonesia: 'ID', egypt: 'EG', nigeria: 'NG', poland: 'PL', switzerland: 'CH', canada: 'CA', australia: 'AU', singapore: 'SG',
+  'hong kong': 'HK', hongkong: 'HK', taiwan: 'TW', thailand: 'TH', malaysia: 'MY', philippines: 'PH', ireland: 'IE', belgium: 'BE', austria: 'AT',
+  sweden: 'SE', norway: 'NO', denmark: 'DK', finland: 'FI', portugal: 'PT', greece: 'GR', romania: 'RO', russia: 'RU', 'russian federation': 'RU', ukraine: 'UA',
+  israel: 'IL', iran: 'IR', iraq: 'IQ', jordan: 'JO', qatar: 'QA', kuwait: 'KW', oman: 'OM', bahrain: 'BH', pakistan: 'PK', bangladesh: 'BD',
+  'sri lanka': 'LK', myanmar: 'MM', cambodia: 'KH', 'south africa': 'ZA', kenya: 'KE', morocco: 'MA', ghana: 'GH', chile: 'CL', peru: 'PE', colombia: 'CO',
+  argentina: 'AR', 'new zealand': 'NZ', 'czech republic': 'CZ', czechia: 'CZ', hungary: 'HU', kazakhstan: 'KZ', uzbekistan: 'UZ', luxembourg: 'LU',
+  // 국가 형용사 (회사명 속 "Turkish Steel", "German Tools" 등)
+  american: 'US', british: 'GB', german: 'DE', french: 'FR', italian: 'IT', spanish: 'ES', dutch: 'NL', swiss: 'CH', polish: 'PL', turkish: 'TR',
+  emirati: 'AE', egyptian: 'EG', indian: 'IN', vietnamese: 'VN', indonesian: 'ID', thai: 'TH', malaysian: 'MY', singaporean: 'SG', japanese: 'JP',
+  chinese: 'CN', mexican: 'MX', brazilian: 'BR', canadian: 'CA', australian: 'AU', irish: 'IE', swedish: 'SE', nigerian: 'NG', 'south african': 'ZA',
+  '두바이': 'AE', '사우디': 'SA', '네덜란드': 'NL', '터키': 'TR', '한국': 'KR', '미합중국': 'US', '영국령버진아일랜드': 'VG',
 };
 
 const countryName = (cc) => (cc ? COUNTRIES[String(cc).toUpperCase()] || String(cc).toUpperCase() : '국가 미확인');
@@ -1010,7 +1027,7 @@ function countryCodeFrom(input) {
   if (!input) return null;
   const s = String(input).trim();
   if (/^[A-Za-z]{2}$/.test(s) && COUNTRIES[s.toUpperCase()]) return s.toUpperCase();
-  const low = s.toLowerCase();
+  const low = s.toLowerCase().replace(/\.$/, '');
   if (ALIASES[low]) return ALIASES[low];
   const hit = Object.entries(COUNTRIES).find(([, ko]) => ko === s);
   return hit ? hit[0] : null;
@@ -1403,6 +1420,187 @@ function buildReport(profile, { now = new Date(), providerLabel = '샘플 데이
 return { ENGINE_VERSION, RULES, GRADES, score, COVERAGE_AREAS, coverageOf, TERMS, exposureOf, simulateDeal, approvalMemo, buildReport };
 })();
 
+__mods["/lib/providers/sample-gen.js"] = (() => {
+// 샘플 모드에서 '목록에 없는 회사'를 조회했을 때 만드는 가상 리포트의 재료.
+// 회사명·웹사이트·법인 형태·선택한 국가에서 국가와 업종을 추론해, 국가-도시-법인형태-도메인-업종-품목-법원이 서로 맞도록 만듭니다.
+// 실제 회사 정보가 아닙니다. 리포트에는 '가상 데이터'라고 표시됩니다.
+const { countryCodeFrom } = __mods["/lib/countries.js"];
+
+// 국가별 정보: 한국어 이름, 도시, 도메인 끝, 기본 법인 형태, 법원 이름(도시 자리에 {city})
+const COUNTRY_INFO = {
+  US: { ko: '미국', cities: ['Los Angeles', 'Houston', 'New York', 'Chicago', 'Atlanta'], tld: 'com', suffix: 'Inc.', court: 'Superior Court ({city})' },
+  DE: { ko: '독일', cities: ['Hamburg', 'Frankfurt am Main', 'Munich', 'Düsseldorf', 'Stuttgart'], tld: 'de', suffix: 'GmbH', court: 'Landgericht {city}' },
+  GB: { ko: '영국', cities: ['London', 'Manchester', 'Birmingham'], tld: 'co.uk', suffix: 'Ltd', court: 'High Court of Justice ({city})' },
+  FR: { ko: '프랑스', cities: ['Paris', 'Lyon', 'Marseille'], tld: 'fr', suffix: 'SAS', court: 'Tribunal de commerce de {city}' },
+  IT: { ko: '이탈리아', cities: ['Milan', 'Turin', 'Bologna'], tld: 'it', suffix: 'S.r.l.', court: 'Tribunale di {city}' },
+  ES: { ko: '스페인', cities: ['Madrid', 'Barcelona', 'Valencia'], tld: 'es', suffix: 'S.L.', court: 'Juzgado de lo Mercantil de {city}' },
+  NL: { ko: '네덜란드', cities: ['Rotterdam', 'Amsterdam', 'Eindhoven'], tld: 'nl', suffix: 'B.V.', court: 'Rechtbank {city}' },
+  CH: { ko: '스위스', cities: ['Zürich', 'Basel', 'Geneva'], tld: 'ch', suffix: 'AG', court: 'Handelsgericht {city}' },
+  PL: { ko: '폴란드', cities: ['Warsaw', 'Wrocław', 'Poznań'], tld: 'pl', suffix: 'Sp. z o.o.', court: 'Sąd Okręgowy ({city})' },
+  TR: { ko: '튀르키예', cities: ['Istanbul', 'Izmir', 'Bursa'], tld: 'com.tr', suffix: 'A.Ş.', court: '{city} Ticaret Mahkemesi' },
+  AE: { ko: '아랍에미리트', cities: ['Dubai', 'Sharjah', 'Abu Dhabi'], tld: 'ae', suffix: 'LLC', court: '{city} Courts' },
+  SA: { ko: '사우디아라비아', cities: ['Riyadh', 'Jeddah', 'Dammam'], tld: 'sa', suffix: 'Co.', court: '{city} Commercial Court' },
+  EG: { ko: '이집트', cities: ['Cairo', 'Alexandria'], tld: 'com.eg', suffix: 'S.A.E.', court: '{city} Economic Court' },
+  IN: { ko: '인도', cities: ['Mumbai', 'Chennai', 'New Delhi', 'Pune'], tld: 'in', suffix: 'Pvt Ltd', court: '{city} High Court' },
+  VN: { ko: '베트남', cities: ['Ho Chi Minh City', 'Hanoi', 'Hai Phong'], tld: 'com.vn', suffix: 'Co., Ltd', court: "People's Court of {city}" },
+  ID: { ko: '인도네시아', cities: ['Jakarta', 'Surabaya', 'Bandung'], tld: 'co.id', suffix: 'PT', prefix: true, court: '{city} District Court' },
+  TH: { ko: '태국', cities: ['Bangkok', 'Chonburi'], tld: 'co.th', suffix: 'Co., Ltd.', court: 'Central Intellectual Property and International Trade Court ({city})' },
+  MY: { ko: '말레이시아', cities: ['Kuala Lumpur', 'Penang', 'Johor Bahru'], tld: 'com.my', suffix: 'Sdn. Bhd.', court: 'High Court of Malaya ({city})' },
+  SG: { ko: '싱가포르', cities: ['Singapore'], tld: 'com.sg', suffix: 'Pte. Ltd.', court: 'Singapore High Court' },
+  JP: { ko: '일본', cities: ['Osaka', 'Tokyo', 'Nagoya'], tld: 'co.jp', suffix: 'Co., Ltd.', court: '{city} District Court' },
+  CN: { ko: '중국', cities: ['Shanghai', 'Shenzhen', 'Guangzhou', 'Ningbo'], tld: 'com.cn', suffix: 'Co., Ltd.', court: '{city} Intermediate People’s Court' },
+  HK: { ko: '홍콩', cities: ['Hong Kong'], tld: 'com.hk', suffix: 'Limited', court: 'High Court of Hong Kong' },
+  MX: { ko: '멕시코', cities: ['Monterrey', 'Mexico City', 'Guadalajara'], tld: 'com.mx', suffix: 'S.A. de C.V.', court: 'Juzgado de Distrito ({city})' },
+  BR: { ko: '브라질', cities: ['São Paulo', 'Curitiba', 'Rio de Janeiro'], tld: 'com.br', suffix: 'Ltda.', court: 'Tribunal de Justiça ({city})' },
+  CA: { ko: '캐나다', cities: ['Toronto', 'Vancouver', 'Montreal'], tld: 'ca', suffix: 'Inc.', court: 'Superior Court ({city})' },
+  AU: { ko: '호주', cities: ['Sydney', 'Melbourne'], tld: 'com.au', suffix: 'Pty Ltd', court: 'Federal Court of Australia ({city})' },
+  IE: { ko: '아일랜드', cities: ['Dublin', 'Cork', 'Galway'], tld: 'ie', suffix: 'Ltd', court: 'High Court ({city})' },
+  SE: { ko: '스웨덴', cities: ['Stockholm', 'Gothenburg'], tld: 'se', suffix: 'AB', court: '{city} tingsrätt' },
+  NG: { ko: '나이지리아', cities: ['Lagos', 'Abuja'], tld: 'com.ng', suffix: 'Ltd', court: 'Federal High Court, {city}' },
+  KR: { ko: '대한민국', cities: ['Seoul', 'Busan', 'Incheon'], tld: 'co.kr', suffix: 'Co., Ltd.', court: '{city} District Court' },
+  XX: { ko: '국가 미확인', cities: [''], tld: '', suffix: '', court: '현지 법원' },
+  ZA: { ko: '남아프리카공화국', cities: ['Johannesburg', 'Cape Town', 'Durban'], tld: 'co.za', suffix: '(Pty) Ltd', court: 'High Court ({city})' },
+};
+// 이름을 모르는 회사의 국가를 정할 때 쓰는 후보 (수출 상대국 위주)
+const DEFAULT_POOL = ['US', 'VN', 'AE', 'DE', 'IN', 'MX', 'ID', 'TR', 'SA', 'PL', 'NL', 'TH', 'JP', 'CN', 'BR', 'GB'];
+
+// 웹사이트 끝 → 국가
+const TLD = { kr: 'KR', 'co.kr': 'KR', 'co.uk': 'GB', uk: 'GB', de: 'DE', fr: 'FR', it: 'IT', es: 'ES', nl: 'NL', ch: 'CH', pl: 'PL', 'com.tr': 'TR', tr: 'TR', ae: 'AE', sa: 'SA', 'com.sa': 'SA', eg: 'EG', 'com.eg': 'EG', in: 'IN', 'co.in': 'IN', vn: 'VN', 'com.vn': 'VN', id: 'ID', 'co.id': 'ID', th: 'TH', 'co.th': 'TH', my: 'MY', 'com.my': 'MY', sg: 'SG', 'com.sg': 'SG', jp: 'JP', 'co.jp': 'JP', cn: 'CN', 'com.cn': 'CN', hk: 'HK', 'com.hk': 'HK', mx: 'MX', 'com.mx': 'MX', br: 'BR', 'com.br': 'BR', ca: 'CA', au: 'AU', 'com.au': 'AU', ie: 'IE', se: 'SE', ng: 'NG', 'com.ng': 'NG', za: 'ZA', 'co.za': 'ZA' };
+
+// 법인 형태 → 국가 (회사명 끝에 붙은 경우)
+const LEGAL = [
+  [/\bgmbh\b|\bag\b|\baktiengesellschaft\b|\bkg\b/i, 'DE'], [/\bs\.?p\.?a\.?$|\bs\.?r\.?l\.?$|societa per azioni/i, 'IT'], [/\bsas\b|\bsarl\b|\bs\.a\.s\.?$/i, 'FR'],
+  [/s\.?\s?a\.?\s?de\s?c\.?\s?v\.?/i, 'MX'], [/\bpvt\.?\s*ltd\b|\bprivate limited\b/i, 'IN'], [/^pt\.?\s|\btbk\b/i, 'ID'], [/\bfze\b|\bfzco\b|\bfz-llc\b|\bl\.l\.c\b/i, 'AE'],
+  [/\bplc\b/i, 'GB'], [/\bb\.?v\.?$|\bn\.?v\.?$/i, 'NL'], [/\ba\.ş\.?$|\ba\.s\.$/i, 'TR'], [/sp\.?\s*z\s*o\.?\s*o\.?/i, 'PL'], [/\bltda\.?$/i, 'BR'], [/\bjsc\b/i, 'VN'],
+  [/\bk\.?k\.?$|kabushiki/i, 'JP'], [/\bpte\.?\s*ltd/i, 'SG'], [/\bsdn\.?\s*bhd/i, 'MY'], [/\bpty\.?\s*ltd/i, 'AU'], [/\bs\.?l\.?$/i, 'ES'], [/\bab$/i, 'SE'],
+  [/\binc\.?$|\bcorp\.?$|\bcorporation$|\bllc$/i, 'US'],
+];
+// 여러 나라에서 쓰는 법인 형태 → 그중에서 고름
+const LEGAL_POOL = [
+  [/co\.?,?\s*ltd\.?$/i, ['VN', 'TH', 'CN', 'JP']],
+  [/\bltd\.?$|\blimited$/i, ['GB', 'HK', 'NG', 'IE']],
+  [/\bs\.?a\.?$/i, ['ES', 'FR', 'BR']],
+  [/\bse$/i, ['DE', 'FR', 'NL']],
+  [/\bn\.?v\.?$/i, ['NL']],
+];
+
+// 도시 이름 → 국가
+const CITY = {};
+for (const [cc, info] of Object.entries(COUNTRY_INFO)) for (const c of info.cities) CITY[c.toLowerCase()] = cc;
+Object.assign(CITY, { mumbai: 'IN', bombay: 'IN', saigon: 'VN', jeddah: 'SA', istanbul: 'TR', lagos: 'NG', cairo: 'EG', shenzhen: 'CN', osaka: 'JP', tokyo: 'JP', rotterdam: 'NL' });
+
+// 업종별 대표 품목과 주로 들여오는 나라
+// 잘 알려진 제조사에 붙이는 업종 이름
+const MAKER_KO = { medical: '의료기기 제조', pharma: '제약', electric: '전기·자동화 설비 제조', defense: '방위산업·항공우주', chemical: '화학 제조', steel: '철강 제조', auto: '자동차·부품 제조', electronics: '전자 제조' };
+const FREE_MAIL = ['gmail.com', 'yahoo.com', 'hotmail.com', 'outlook.com', 'aol.com', 'mail.com', 'qq.com', '163.com', '126.com', 'yandex.ru', 'naver.com', 'daum.net', 'gmx.com', 'proton.me', 'protonmail.com', 'icloud.com', 'live.com'];
+const INDUSTRY_INFO = {
+  medical: { ko: '의료기기 유통', products: ['체외진단 시약·키트', '수술용 소모품', '초음파 프로브', '카테터·튜브류', '환자 모니터 부품'], partners: ['대한민국', '독일', '미국', '일본'] },
+  pharma: { ko: '의약품 유통', products: ['원료의약품(API)', '주사제 바이알', '의약품 포장재', '일반의약품 완제품'], partners: ['대한민국', '인도', '독일', '스위스'] },
+  electric: { ko: '전기·전력 설비 유통', products: ['배전반·차단기', '전력 케이블', '변압기 부품', '산업용 배터리'], partners: ['대한민국', '중국', '독일'] },
+  defense: { ko: '방산·항공 부품 조달', products: ['정밀 가공 부품', '특수 합금 소재', '항공 전자 커넥터'], partners: ['대한민국', '미국', '프랑스'] },
+  chemical: { ko: '화학·수지 유통', products: ['PE 레진', 'PP 레진', '합성고무', '산업용 용제'], partners: ['대한민국', '사우디아라비아', '중국'] },
+  steel: { ko: '철강·금속 유통', products: ['열연 강판', '스테인리스 코일', '강관', '알루미늄 판재'], partners: ['대한민국', '중국', '일본'] },
+  auto: { ko: '자동차 부품 유통', products: ['브레이크 패드', '와이어 하네스', '자동차 램프', '엔진 필터'], partners: ['대한민국', '일본', '독일'] },
+  electronics: { ko: '전자부품 유통', products: ['PCB 기판', '커넥터', '디스플레이 모듈', '전원 공급장치'], partners: ['대한민국', '대만', '중국'] },
+  cosmetics: { ko: '화장품 유통', products: ['기초 화장품', '마스크팩', '선크림', '화장품 용기'], partners: ['대한민국', '프랑스', '일본'] },
+  food: { ko: '식품 수입', products: ['라면·즉석식품', '소스·조미료', '음료', '김·해조류'], partners: ['대한민국', '태국', '베트남'] },
+  textile: { ko: '섬유·의류 수입', products: ['기능성 원단', '니트 의류', '원사'], partners: ['대한민국', '베트남', '중국'] },
+  machinery: { ko: '기계·설비 수입', products: ['CNC 공작기계', '유압 부품', '산업용 펌프', '컨베이어 부품'], partners: ['대한민국', '독일', '일본'] },
+  logistics: { ko: '물류·중개', products: ['포장재', '팔레트', '혼재 화물'], partners: ['대한민국', '중국'] },
+  construction: { ko: '건자재 수입', products: ['단열재', '창호 부품', '타일', '배관 자재'], partners: ['대한민국', '중국', '튀르키예'] },
+  general: { ko: '종합 무역', products: ['생활용품', '가전 소모품', '주방용품', '포장재'], partners: ['대한민국', '중국', '베트남'] },
+};
+const KEYWORDS = [
+  ['medical', /medic|medtech|health|surgic|dental|diagnost|devices?|ortho|clinic|hospital|stryker|medtronic|philips|healthineers|의료/],
+  ['pharma', /pharm|drug|biotech|\bbio|laborator|therapeut|life ?science|vaccin|pfizer|novartis|sanofi|bayer|roche|제약/],
+  ['defense', /defen[cs]e|aerospace|arms|military|ordnance|lockheed|rheinmetall|bae systems|leonardo|thales|방산|방위/],
+  ['electric', /electric|power|energy|cable|switchgear|solar|battery|abb\b|schneider|eaton|siemens|전기|전력/],
+  ['chemical', /chem|polymer|plastic|resin|petro|rubber|화학/],
+  ['steel', /steel|metal|alloy|iron|alumin|mining|minerals|철강/],
+  ['auto', /auto|motor|vehicle|car parts|tyre|tire|자동차/],
+  ['electronics', /electronic|semicon|component|digital|tech\b|technolog|display|전자/],
+  ['cosmetics', /cosmet|beauty|skin|화장품/],
+  ['food', /food|agro|coffee|beverage|snack|grocery|식품/],
+  ['textile', /textile|fabric|garment|apparel|fashion|섬유|의류/],
+  ['machinery', /machin|maschinen|equipment|engineering|industrial|tools?\b|werkzeug|기계/],
+  ['logistics', /logistic|shipping|freight|cargo|물류/],
+  ['construction', /construct|building|cement|건자재|건설/],
+];
+
+// 잘 알려진 실제 기업: 샘플 모드에서도 국가·업종은 맞게 보여 주고, 위험 정보는 만들어 내지 않음
+const KNOWN = {
+  medtronic: { name: 'Medtronic plc', cc: 'IE', ind: 'medical', city: 'Dublin', domain: 'medtronic.com' }, 'siemens healthineers': { name: 'Siemens Healthineers AG', cc: 'DE', ind: 'medical', city: 'Erlangen', domain: 'siemens-healthineers.com' },
+  stryker: { name: 'Stryker Corporation', cc: 'US', ind: 'medical', city: 'Kalamazoo', domain: 'stryker.com' }, philips: { name: 'Koninklijke Philips N.V.', cc: 'NL', ind: 'medical', city: 'Amsterdam', domain: 'philips.com' },
+  'boston scientific': { name: 'Boston Scientific Corporation', cc: 'US', ind: 'medical', city: 'Marlborough', domain: 'bostonscientific.com' }, olympus: { name: 'Olympus Corporation', cc: 'JP', ind: 'medical', city: 'Tokyo', domain: 'olympus.com' },
+  pfizer: { name: 'Pfizer Inc.', cc: 'US', ind: 'pharma', city: 'New York', domain: 'pfizer.com' }, novartis: { name: 'Novartis AG', cc: 'CH', ind: 'pharma', city: 'Basel', domain: 'novartis.com' },
+  bayer: { name: 'Bayer AG', cc: 'DE', ind: 'pharma', city: 'Leverkusen', domain: 'bayer.com' }, sanofi: { name: 'Sanofi', cc: 'FR', ind: 'pharma', city: 'Paris', domain: 'sanofi.com' },
+  roche: { name: 'Roche Holding AG', cc: 'CH', ind: 'pharma', city: 'Basel', domain: 'roche.com' }, schneider: { name: 'Schneider Electric SE', cc: 'FR', ind: 'electric', city: 'Rueil-Malmaison', domain: 'se.com' },
+  abb: { name: 'ABB Ltd', cc: 'CH', ind: 'electric', city: 'Zürich', domain: 'abb.com' }, siemens: { name: 'Siemens AG', cc: 'DE', ind: 'electric', city: 'Munich', domain: 'siemens.com' },
+  eaton: { name: 'Eaton Corporation plc', cc: 'IE', ind: 'electric', city: 'Dublin', domain: 'eaton.com' }, lockheed: { name: 'Lockheed Martin Corporation', cc: 'US', ind: 'defense', city: 'Bethesda', domain: 'lockheedmartin.com' },
+  'bae systems': { name: 'BAE Systems plc', cc: 'GB', ind: 'defense', city: 'London', domain: 'baesystems.com' }, rheinmetall: { name: 'Rheinmetall AG', cc: 'DE', ind: 'defense', city: 'Düsseldorf', domain: 'rheinmetall.com' },
+  leonardo: { name: 'Leonardo S.p.A.', cc: 'IT', ind: 'defense', city: 'Rome', domain: 'leonardo.com' }, thales: { name: 'Thales S.A.', cc: 'FR', ind: 'defense', city: 'Paris', domain: 'thalesgroup.com' },
+  boeing: { name: 'The Boeing Company', cc: 'US', ind: 'defense', city: 'Arlington', domain: 'boeing.com' }, airbus: { name: 'Airbus SE', cc: 'NL', ind: 'defense', city: 'Leiden', domain: 'airbus.com' },
+  apple: { name: 'Apple Inc.', cc: 'US', ind: 'electronics', city: 'Cupertino', domain: 'apple.com' },
+  sony: { name: 'Sony Group Corporation', cc: 'JP', ind: 'electronics', city: 'Tokyo', domain: 'sony.com' }, toyota: { name: 'Toyota Motor Corporation', cc: 'JP', ind: 'auto', city: 'Toyota City', domain: 'toyota-global.com' },
+  bosch: { name: 'Robert Bosch GmbH', cc: 'DE', ind: 'auto', city: 'Gerlingen', domain: 'bosch.com' }, basf: { name: 'BASF SE', cc: 'DE', ind: 'chemical', city: 'Ludwigshafen', domain: 'basf.com' },
+};
+
+function hash(str) {
+  let h = 2166136261;
+  for (let i = 0; i < str.length; i++) { h ^= str.charCodeAt(i); h = Math.imul(h, 16777619); }
+  return h >>> 0;
+}
+
+// 회사명(원문)·웹사이트·선택 국가에서 국가와 업종 추론
+function infer({ name, domain, country }) {
+  const low = String(name || '').toLowerCase();
+  const dom = String(domain || '').toLowerCase().replace(/^www\./, '');
+  const known = Object.entries(KNOWN).find(([, v]) => dom && v.domain === dom)
+    || Object.entries(KNOWN).sort((a, b) => b[0].length - a[0].length).find(([k]) => new RegExp(`(^|[^a-z])${k}([^a-z]|$)`).test(low));
+  let cc = country && COUNTRY_INFO[country] ? country : null;
+  let how = cc ? 'selected' : null;
+  // 이름 속 국가명 ("Pfizer Korea", "Siemens Mexico", "Bayer Vietnam") → 현지 법인으로 봄
+  if (!cc) {
+    const words = low.replace(/[^a-z\s]/g, ' ').split(/\s+/).filter(Boolean);
+    for (let i = 0; i < words.length && !cc; i++) {
+      for (const w of [words.slice(i, i + 2).join(' '), words[i]]) {
+        const c = countryCodeFrom(w);
+        if (c && COUNTRY_INFO[c] && w.length > 2) { cc = c; how = 'name-country'; break; }
+      }
+    }
+  }
+  if (!cc && domain) {
+    const parts = domain.split('.');
+    const t2 = parts.slice(-2).join('.');
+    cc = TLD[t2] || TLD[parts[parts.length - 1]] || null;
+    if (cc) how = 'domain';
+  }
+  if (!cc && known) { cc = known[1].cc; how = 'known'; }
+  if (!cc) { const l = LEGAL.find(([re]) => re.test(String(name || '').trim())); if (l) { cc = l[1]; how = 'legal'; } }
+  if (!cc) { const l = LEGAL_POOL.find(([re]) => re.test(String(name || '').trim())); if (l) { cc = l[1][hash(low) % l[1].length]; how = 'legal'; } }
+  if (!cc) { const c = Object.keys(CITY).find((k) => new RegExp(`(^|\\s)${k}(\\s|$)`).test(low)); if (c) { cc = CITY[c]; how = 'city'; } }
+  if (!cc || !COUNTRY_INFO[cc]) { cc = DEFAULT_POOL[hash(low) % DEFAULT_POOL.length]; how = how || 'guess'; }
+  let ind = known ? known[1].ind : null;
+  if (!ind) { const k = KEYWORDS.find(([, re]) => re.test(low)); ind = k ? k[0] : 'general'; }
+  // 이름에 그 나라 도시가 들어 있으면 그 도시로
+  const cityHit = (COUNTRY_INFO[cc]?.cities || []).find((c) => low.includes(c.toLowerCase()));
+  const k = known ? known[1] : null;
+  return { cc, ind, known: Boolean(known), how, city: (k && k.cc === cc && k.city) || cityHit || null, domain: k && k.cc === cc ? k.domain : null, knownName: k ? k.name : null, knownKey: known ? known[0] : null };
+}
+
+// 원문 이름 다듬기: 전부 소문자면 단어 첫 글자만 대문자로, 법인 형태가 없으면 그 나라 형태를 붙임
+function displayName(raw, cc) {
+  let n = String(raw || '').trim().replace(/\s+/g, ' ');
+  if (n === n.toLowerCase()) n = n.replace(/(^|[\s-])([a-z])/g, (m, a, b) => a + b.toUpperCase());
+  const hasLegal = LEGAL.some(([re]) => re.test(n)) || LEGAL_POOL.some(([re]) => re.test(n)) || /\b(ltd|limited|co\.?,? ltd|company|corp|inc|group|holdings?|sa|s\.a|nv|n\.v|ag|se|plc|spa|s\.p\.a|oy|asa|a\/s|kgaa|co|est|llp)\.?$/i.test(n);
+  if (hasLegal) return n;
+  const info = COUNTRY_INFO[cc];
+  return info.prefix ? `${info.suffix} ${n}` : `${n} ${info.suffix}`;
+}
+
+return { COUNTRY_INFO, MAKER_KO, FREE_MAIL, INDUSTRY_INFO, KNOWN, hash, infer, displayName };
+})();
+
 __mods["/lib/providers/sample.js"] = (() => {
 // 샘플 데이터 공급자 — 실제 데이터 업체와 계약하기 전까지 쓰는 가상 데이터입니다.
 // 실제 업체를 연결할 때는 같은 두 함수(searchCompanies, getProfile)를 가진 공급자를 만들어
@@ -1422,6 +1620,9 @@ __mods["/lib/providers/sample.js"] = (() => {
 //       fraud:     [{ year, kind: 'confirmed'|'impersonation'|'reported', note, source }],
 //       coverage:  { customs, courts, insolvency, credit } // false면 리포트에 '정보 제한'으로 표시
 //     }
+
+const { COUNTRY_INFO, INDUSTRY_INFO, MAKER_KO, FREE_MAIL, infer, displayName, hash } = __mods["/lib/providers/sample-gen.js"];
+const { countryCodeFrom } = __mods["/lib/countries.js"];
 
 const PROVIDER_ID = 'sample';
 const PROVIDER_LABEL = '샘플 데이터';
@@ -1642,19 +1843,10 @@ function normalize(q) {
     .replace(/^www\./, '')
     .replace(/\/.*$/, '')
     .replace(/\.(com|net|org|co|ae|ch|nl|eg|uk|de|cn|jp|kr|vn|in|io|biz|info)(\.[a-z]{2})?$/i, '')
-    .replace(/\b(llc|ltd|limited|inc|corp|co|gmbh|ag|bv|fze|fzco|sa|srl|pte|plc|company)\b\.?/g, ' ')
+    .replace(/\b(llc|ltd|limited|inc|incorporated|corp|corporation|co|gmbh|ag|aktiengesellschaft|bv|nv|fze|fzco|sa|sas|srl|spa|pte|plc|company|pvt|sdn|bhd|pty|jsc|ltda|kk)\b\.?/g, ' ')
     .replace(/[^a-z0-9가-힣]+/g, ' ')
     .replace(/\s+/g, ' ')
     .trim();
-}
-
-function hash(str) {
-  let h = 2166136261;
-  for (let i = 0; i < str.length; i++) {
-    h ^= str.charCodeAt(i);
-    h = Math.imul(h, 16777619);
-  }
-  return h >>> 0;
 }
 
 function rng(seed) {
@@ -1667,43 +1859,53 @@ function rng(seed) {
   };
 }
 
-function titleCase(s) {
-  return s.replace(/\b[a-z]/g, (c) => c.toUpperCase());
-}
-
-const COUNTRIES = [
-  ['아랍에미리트', 'AE', 'Dubai', 'ae'], ['베트남', 'VN', 'Ho Chi Minh City', 'vn'], ['인도', 'IN', 'Mumbai', 'in'],
-  ['미국', 'US', 'Los Angeles', 'com'], ['독일', 'DE', 'Hamburg', 'de'], ['멕시코', 'MX', 'Monterrey', 'mx'],
-  ['인도네시아', 'ID', 'Jakarta', 'id'], ['튀르키예', 'TR', 'Istanbul', 'com.tr'], ['사우디아라비아', 'SA', 'Riyadh', 'sa'],
-  ['폴란드', 'PL', 'Warsaw', 'pl'], ['브라질', 'BR', 'São Paulo', 'com.br'], ['태국', 'TH', 'Bangkok', 'co.th'],
-];
-const INDUSTRIES = ['도매 무역', '산업자재 유통', '전자부품 수입', '화장품 유통', '식품 수입', '자동차 부품 유통', '기계 설비 수입', '소비재 수입'];
-const PRODUCTS = ['전자부품', '화장품', '자동차 부품', '산업용 밸브', '포장재', '가전제품', '의료 소모품', '섬유 원단', '식품 원료', '플라스틱 레진'];
-const PARTNERS = ['대한민국', '중국', '일본', '베트남', '독일', '튀르키예', '대만', '인도'];
-
-function generated(slug) {
-  const r = rng(hash(slug));
+// 목록에 없는 회사 → 국가·업종을 추론해 서로 맞는 가상 프로필 생성 (같은 입력이면 항상 같은 결과)
+function generated(spec) {
+  const raw = String(spec.n || '').trim().slice(0, 120);
+  const freeMail = Boolean(spec.d && FREE_MAIL.includes(spec.d));
+  const hangul = /[가-힣]/.test(raw);
+  const inf = freeMail && !spec.c ? { cc: 'XX', ind: 'general', known: false, city: null, domain: null } : infer({ name: raw, domain: freeMail ? null : spec.d, country: spec.c });
+  const { cc, ind, known, city: cityHit } = inf;
+  const info = COUNTRY_INFO[cc];
+  const inds = INDUSTRY_INFO[ind];
+  const key = `${normalize(raw) || raw}|${cc}|${spec.d || ''}`;
+  const r = rng(hash(key));
   const pick = (arr) => arr[Math.floor(r() * arr.length)];
-  const [country, cc, city, tld] = pick(COUNTRIES);
+  const city = cityHit || pick(info.cities);
   const roll = r();
-  const archetype = roll < 0.3 ? 'A' : roll < 0.6 ? 'B' : roll < 0.82 ? 'C' : roll < 0.94 ? 'D' : 'F';
-  const name = titleCase(slug) + (cc === 'DE' ? ' GmbH' : cc === 'AE' ? ' LLC' : cc === 'VN' ? ' Co., Ltd' : ' Ltd');
+  // 잘 알려진 실제 기업 이름이면 위험 정보를 지어내지 않음 (항상 깨끗한 프로필)
+  const archetype = known ? 'A' : roll < 0.3 ? 'A' : roll < 0.6 ? 'B' : roll < 0.82 ? 'C' : roll < 0.94 ? 'D' : 'F';
+  // 이름: 무료 메일이면 회사명 미확인, 한글로 입력하면 입력 그대로, 그 외에는 그 나라 법인 형태를 맞춰 붙임
+  // 잘 알려진 기업: 웹사이트나 브랜드명만 넣었으면 정식 이름으로, 그 외에는 입력한 이름 그대로(법인 형태를 덧붙이지 않음)
+  const name = freeMail ? `회사명 미확인 (${raw}@${spec.d})` : hangul ? raw
+    : known ? (inf.knownName && (spec.d || normalize(raw) === inf.knownKey) ? inf.knownName : raw.replace(/(^|\s)([a-z])/g, (m, a, b) => a + b.toUpperCase()))
+    : displayName(raw, cc);
   const nowYear = new Date().getFullYear();
   const founded = archetype === 'F' ? nowYear - Math.floor(r() * 2) : nowYear - 3 - Math.floor(r() * 25);
   const base = { A: 12, B: 7, C: 4, D: 2, F: 0 }[archetype];
   const monthly = Array.from({ length: 12 }, () => Math.max(0, Math.round(base + (r() - 0.5) * base * 0.8)));
+  const court = info.court.replace('{city}', city);
   const courts = [];
-  if (archetype === 'B' || archetype === 'C') courts.push({ year: nowYear - 2, kind: 'payment', status: 'closed', role: '피고', amountUSD: Math.round(5 + r() * 25) * 1000, court: `${city} Commercial Court` });
-  if (archetype === 'C') courts.push({ year: nowYear - 1, kind: 'contract', status: 'closed', role: '원고', amountUSD: Math.round(5 + r() * 20) * 1000, court: `${city} Commercial Court` });
-  if (archetype === 'C' || archetype === 'D') courts.push({ year: nowYear - 1, kind: 'payment', status: 'open', role: '피고', amountUSD: Math.round(30 + r() * 120) * 1000, court: `${city} Commercial Court` });
-  if (archetype === 'D') courts.push({ year: nowYear, kind: 'payment', status: 'open', role: '피고', amountUSD: Math.round(20 + r() * 80) * 1000, court: `${city} Commercial Court` });
+  if (archetype === 'B' || archetype === 'C') courts.push({ year: nowYear - 2, kind: 'payment', status: 'closed', role: '피고', amountUSD: Math.round(5 + r() * 25) * 1000, court });
+  if (archetype === 'C') courts.push({ year: nowYear - 1, kind: 'contract', status: 'closed', role: '원고', amountUSD: Math.round(5 + r() * 20) * 1000, court });
+  if (archetype === 'C' || archetype === 'D') courts.push({ year: nowYear - 1, kind: 'payment', status: 'open', role: '피고', amountUSD: Math.round(30 + r() * 120) * 1000, court });
+  if (archetype === 'D') courts.push({ year: nowYear, kind: 'payment', status: 'open', role: '피고', amountUSD: Math.round(20 + r() * 80) * 1000, court });
   const insolvency = archetype === 'D' ? [{ year: nowYear, kind: 'restructuring', status: 'active' }] : [];
   const creditScore = { A: 68 + r() * 26, B: 46 + r() * 16, C: 40 + r() * 16, D: 40 + r() * 15, F: null }[archetype];
-  const domainSlug = slug.replace(/\s+/g, '-');
+  // 품목은 업종 목록에서, 거래 국가는 업종의 주요 공급국에서 (자기 나라는 제외, 대한민국은 항상 포함)
+  const prods = [...inds.products].sort(() => r() - 0.5).slice(0, base ? 2 + Math.floor(r() * 2) : 0);
+  const partners = base ? [...(cc === 'KR' ? [] : ['대한민국']), ...inds.partners.filter((x) => x !== '대한민국' && x !== info.ko).sort(() => r() - 0.5).slice(0, 1 + Math.floor(r() * 2))] : [];
+  const slug = normalize(raw).replace(/\s+/g, '-').slice(0, 40);
+  const domain = spec.d || inf.domain || (slug && !hangul && info.tld ? `${slug}.${info.tld}` : '');
   return {
-    company: { id: 'gen:' + slug, name, country, countryCode: cc, industry: pick(INDUSTRIES), city, founded, regNo: `${cc}-${String(hash(slug + 'r')).slice(0, 8)}`, domain: `${domainSlug}.${tld}` },
-    identity: { domainMatchesCompany: archetype !== 'F', addressVerified: archetype !== 'F', impersonates: null },
-    customs: { monthly, lastShipmentDaysAgo: base ? Math.round(3 + r() * 40) : null, topProducts: base ? [pick(PRODUCTS), pick(PRODUCTS)].filter((v, i, a) => a.indexOf(v) === i) : [], partnerCountries: base ? ['대한민국', pick(PARTNERS)].filter((v, i, a) => a.indexOf(v) === i) : [] },
+    company: {
+      id: genId({ n: raw, c: spec.c || null, d: spec.d || null }),
+      name, country: info.ko, countryCode: cc, industry: known ? MAKER_KO[ind] || inds.ko : inds.ko, city, founded,
+      regNo: `${cc}-${String(hash(key + 'r')).slice(0, 8)}`, domain, generated: true, knownCompany: known,
+    },
+    identity: { domainMatchesCompany: freeMail || !domain ? null : archetype !== 'F', addressVerified: archetype !== 'F', impersonates: null },
+    ...(freeMail ? { domainInfo: { domain: spec.d, freeMail: true, ageDays: null } } : {}),
+    customs: { monthly, lastShipmentDaysAgo: base ? Math.round(3 + r() * 40) : null, topProducts: prods, partnerCountries: partners },
     courts,
     insolvency,
     credit: { score: creditScore == null ? null : Math.round(creditScore), provider: '샘플 신용평가' },
@@ -1712,35 +1914,91 @@ function generated(slug) {
   };
 }
 
+const genId = (o) => 'gen:' + encodeURIComponent(JSON.stringify(o));
+function parseGen(id) {
+  const rest = id.slice(4);
+  try {
+    const o = JSON.parse(decodeURIComponent(rest));
+    if (o && typeof o.n === 'string' && normalize(o.n)) {
+      const c = typeof o.c === 'string' && COUNTRY_INFO[o.c.toUpperCase()] ? o.c.toUpperCase() : null;
+      const d = typeof o.d === 'string' && /^[a-z0-9-]+(\.[a-z0-9-]+)+$/.test(o.d) ? o.d : null;
+      return { n: o.n, c, d };
+    }
+  } catch { /* 예전 형식(gen:슬러그) */ }
+  const slug = normalize(rest);
+  return slug ? { n: slug, c: null, d: null } : null;
+}
+
+// ---------------- 이름 비교 ----------------
+const GENERIC = new Set(['trading', 'trade', 'group', 'global', 'international', 'intl', 'company', 'import', 'imports', 'export', 'exports', 'holding', 'holdings', 'the', 'and', 'of', 'enterprise', 'enterprises', 'corporation', 'est']);
+const tokens = (s) => normalize(s).split(' ').filter((t) => t.length >= 2);
+function lev(a, b) {
+  if (Math.abs(a.length - b.length) > 2) return 9;
+  const d = Array.from({ length: a.length + 1 }, (_, i) => [i]);
+  for (let j = 1; j <= b.length; j++) d[0][j] = j;
+  for (let i = 1; i <= a.length; i++) for (let j = 1; j <= b.length; j++) d[i][j] = Math.min(d[i - 1][j] + 1, d[i][j - 1] + 1, d[i - 1][j - 1] + (a[i - 1] === b[j - 1] ? 0 : 1));
+  return d[a.length][b.length];
+}
+const tokMatch = (q, t) => q === t || (q.length >= 4 && t.startsWith(q)) || (q.length >= 5 && lev(q, t) <= (q.length >= 8 ? 2 : 1));
+// 검색어의 모든 '구별되는 단어'가 회사 이름·별칭에 있어야 같은 회사로 봄 (흔한 단어 하나로 엉뚱한 회사가 잡히지 않게)
+function matchScore(query, p) {
+  const raw = String(query || '').trim();
+  if (/[가-힣]/.test(raw)) return p.aliases.some((a) => /[가-힣]/.test(a) && (raw === a || (a.length >= 3 && raw.startsWith(a)))) ? 10 : 0;
+  const q = tokens(raw).filter((t) => !GENERIC.has(t));
+  if (!q.length) return 0;
+  const pool = new Set([...tokens(p.company.name), ...p.aliases.flatMap((a) => tokens(a))]);
+  let hit = 0;
+  for (const t of q) if ([...pool].some((x) => tokMatch(t, x))) hit++;
+  if (hit < q.length) return 0;
+  return hit + (normalize(raw) === normalize(p.company.name) ? 100 : 0);
+}
+
 function toCandidate(p) {
   const c = p.company;
-  return { id: c.id, name: c.name, country: c.country, countryCode: c.countryCode, industry: c.industry, city: c.city, domain: c.domain };
+  return { id: c.id, name: c.name, country: c.country, countryCode: c.countryCode, industry: c.industry + (c.generated ? ' · 가상 데이터' : ''), city: c.city, domain: c.domain };
 }
 
 // ---------------- 공급자 함수 ----------------
-async function searchCompanies(query) {
-  const q = normalize(query);
+async function searchCompanies(query, { country } = {}) {
+  let raw = String(query || '').trim();
+  let cc = countryCodeFrom(country);
+  // "회사명, Germany" 처럼 국가를 붙여 쓴 경우
+  const m = raw.match(/^(.*?)[,(]\s*([A-Za-z가-힣 .]{2,})\)?\s*$/);
+  if (m && countryCodeFrom(m[2])) { cc = cc || countryCodeFrom(m[2]); raw = m[1].trim(); }
+  const q = normalize(raw);
   if (!q || q.length < 2) return [];
   // 사업자(법인)등록번호로 찾기: 기호·공백을 무시하고 비교
   const compact = (v) => String(v || '').toLowerCase().replace(/[^a-z0-9]/g, '');
-  const cq = compact(query);
+  const cq = compact(raw);
   if (cq.length >= 5) {
     const byReg = CURATED.filter((p) => compact(p.company.regNo) === cq || (compact(p.company.regNo).length > 6 && compact(p.company.regNo).endsWith(cq)));
     if (byReg.length) return byReg.map(toCandidate);
   }
-  // 웹사이트 주소가 정확히 일치하면 그 회사 하나만
-  const byDomain = CURATED.filter((p) => /[./]/.test(query) && normalize(p.company.domain) === q);
-  if (byDomain.length === 1) return byDomain.map(toCandidate);
-  const hits = CURATED.filter((p) => p.aliases.some((a) => q.includes(a) || (q.length >= 3 && a.includes(q))));
-  if (hits.length) return hits.map(toCandidate);
-  return [toCandidate(generated(q))];
+  // 웹사이트·이메일이면 도메인으로 찾기
+  const em = raw.toLowerCase().match(/@([a-z0-9.-]+\.[a-z]{2,})$/);
+  const isDomain = !/\s/.test(raw) && (em || /\.[a-z]{2,}(\/|$)/i.test(raw));
+  const domain = isDomain ? (em ? em[1] : raw.toLowerCase().replace(/^https?:\/\//, '').replace(/^www\./, '').split(/[/?#]/)[0]) : null;
+  if (domain) {
+    const byDomain = CURATED.filter((p) => p.company.domain === domain || normalize(p.company.domain) === normalize(domain));
+    if (byDomain.length) return byDomain.map(toCandidate);
+  }
+  const scored = CURATED.map((p) => ({ p, s: matchScore(domain ? domain.split('.')[0].replace(/-/g, ' ') : raw, p) }))
+    .filter((x) => x.s > 0 && (!cc || x.p.company.countryCode === cc))
+    .sort((a, b) => b.s - a.s);
+  if (scored.length) {
+    const exact = scored.filter((x) => x.s >= 100);
+    return (exact.length ? exact : scored).map((x) => toCandidate(x.p));
+  }
+  if (domain && FREE_MAIL.includes(domain)) return [toCandidate(generated({ n: (em ? raw.split('@')[0] : 'buyer').slice(0, 40), c: cc, d: domain }))];
+  const name = domain ? domain.split('.')[0].replace(/-/g, ' ') : raw;
+  return [toCandidate(generated({ n: name, c: cc, d: domain }))];
 }
 
 async function getProfile(id) {
   if (!id) return null;
   if (id.startsWith('gen:')) {
-    const slug = normalize(id.slice(4));
-    return slug ? generated(slug) : null;
+    const spec = parseGen(id);
+    return spec ? generated(spec) : null;
   }
   const p = CURATED.find((x) => x.company.id === id);
   if (!p) return null;
@@ -1812,13 +2070,17 @@ const enabled = () => process.env.GLEIF_DISABLED !== '1';
 function toCompany(rec) {
   const a = rec.attributes || {};
   const e = a.entity || {};
-  const addr = e.legalAddress || e.headquartersAddress || {};
+  // 바이어가 실제로 있는 곳은 본사 주소가 더 정확 (미국 기업은 등기 주소가 델라웨어 대리인인 경우가 많음)
+  const addr = e.headquartersAddress?.country ? e.headquartersAddress : e.legalAddress || {};
+  const legal = e.legalAddress || {};
+  const nice = (t) => (t && t === t.toUpperCase() ? t.toLowerCase().replace(/(^|[\s-])(\p{L})/gu, (m, a, b) => a + b.toUpperCase()) : t || null);
   const created = e.creationDate ? new Date(e.creationDate) : null;
   return {
     lei: a.lei,
     name: e.legalName?.name || '',
-    countryCode: addr.country || null,
-    city: addr.city || null,
+    countryCode: addr.country || legal.country || null,
+    legalCountryCode: legal.country || null,
+    city: nice(addr.city),
     addressLines: addr.addressLines || [],
     founded: created && !isNaN(created) ? created.getUTCFullYear() : null,
     regNo: e.registeredAs || null,
@@ -2169,6 +2431,14 @@ const creditsafe = __mods["/lib/sources/creditsafe.js"];
 const importgenius = __mods["/lib/sources/importgenius.js"];
 const { cached } = __mods["/lib/server/cache.js"];
 const { countryName, countryCodeFrom } = __mods["/lib/countries.js"];
+const { infer, INDUSTRY_INFO, MAKER_KO } = __mods["/lib/providers/sample-gen.js"];
+
+// 회사명으로 업종 추정 (등록부에는 업종이 없어서) — '추정'이라고 표시
+function guessIndustry(name) {
+  const g = infer({ name });
+  if (g.ind === 'general') return '';
+  return `${g.known ? MAKER_KO[g.ind] || INDUSTRY_INFO[g.ind].ko : INDUSTRY_INFO[g.ind].ko} (이름으로 추정)`;
+}
 
 const PROVIDER_ID = 'live';
 const PROVIDER_LABEL = '실데이터';
@@ -2257,7 +2527,16 @@ async function searchCompanies(query, { country, allowPaid = true } = {}) {
       : [],
   ]);
   let leis = g.status === 'fulfilled' ? g.value : [];
-  if (p.countryCode) leis = leis.filter((c) => c.countryCode === p.countryCode);
+  if (p.countryCode) leis = leis.filter((c) => c.countryCode === p.countryCode || c.legalCountryCode === p.countryCode);
+  // 입력한 이름과 가까운 법인을 앞으로: 정확히 같음 > 앞부분 같음 > 모든 단어 포함, 같으면 활성 법인 먼저
+  const qs = strictName(p.name);
+  const qTok = normName(p.name).split(' ').filter(Boolean);
+  const rank = (c) => {
+    const n = strictName(c.name);
+    const base = n === qs ? 3 : n.startsWith(qs) ? 2 : qTok.every((t) => normName(c.name).split(' ').includes(t)) ? 1 : 0;
+    return base * 2 + (c.entityStatus === 'ACTIVE' ? 1 : 0);
+  };
+  leis = leis.map((c, i) => ({ c, i, r: rank(c) })).sort((a, b) => b.r - a.r || a.i - b.i).map((x) => x.c);
   const css = cs.status === 'fulfilled' ? cs.value : [];
 
   const out = [];
@@ -2392,7 +2671,7 @@ async function getProfile(id, { now = new Date(), allowPaid = true } = {}) {
       name,
       country: countryName(countryCode),
       countryCode: countryCode || '',
-      industry: '',
+      industry: guessIndustry(name),
       city: reg?.city || '',
       founded: credit?.founded || reg?.founded || null,
       regNo: reg?.regNo || '',
@@ -2881,10 +3160,10 @@ function viewSearch(params) {
       <div style="display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap"><span class="eyebrow">바이어 신용 검증</span>${PREVIEW && window.TC_LIVE ? `<div class="seg" role="group" aria-label="데이터 선택"><button type="button" data-mode="sample" aria-pressed="${!previewLive()}">샘플 데이터</button><button type="button" data-mode="live" aria-pressed="${previewLive()}">실데이터</button></div>` : ''}</div>
       <h1>어떤 바이어를 확인할까요?</h1>
       <p class="muted" style="margin:0">${realData() ? '영문 회사명, 바이어 이메일 주소, 웹사이트 주소 중 하나를 입력하세요. 국가를 고르면 더 정확하게 찾습니다.' : '영문 회사명, 사업자등록번호, 웹사이트 주소 중 아는 것 하나만 입력하세요. 철자가 조금 달라도 찾아 드립니다.'}</p>
-      <form class="searchbox${realData() ? ' with-country' : ''}" id="searchForm" role="search">
+      <form class="searchbox with-country" id="searchForm" role="search">
         <label class="sr" for="q">바이어 회사명, 이메일, 사업자번호 또는 URL</label>
         <input id="q" name="q" type="search" enterkeyhint="search" autocomplete="off" autocapitalize="off" spellcheck="false" placeholder="${realData() ? '예: Siemens AG 또는 buyer@company.ae' : '예: Northwind Global Trading LLC'}" value="${esc(q)}" required minlength="2">
-        ${realData() ? `<label class="sr" for="qc">바이어 국가</label><select id="qc" class="country-select"><option value="">국가 (선택)</option>${Object.entries(COUNTRIES).filter(([k]) => k !== 'KR').sort((a, b) => a[1].localeCompare(b[1], 'ko')).map(([k, v]) => `<option value="${k}" ${params.get('c') === k ? 'selected' : ''}>${esc(v)}</option>`).join('')}</select>` : ''}
+        ${true ? `<label class="sr" for="qc">바이어 국가</label><select id="qc" class="country-select"><option value="">국가 (선택)</option>${Object.entries(COUNTRIES).filter(([k]) => !['KR', 'KP'].includes(k)).sort((a, b) => a[1].localeCompare(b[1], 'ko')).map(([k, v]) => `<option value="${k}" ${params.get('c') === k ? 'selected' : ''}>${esc(v)}</option>`).join('')}</select>` : ''}
         <button class="btn btn-primary" type="submit">안전 등급 조회</button>
       </form>
       ${previewLive() ? `<details class="oskey"><summary>제재 명단 API 키 넣기 (선택)</summary><div><p class="muted" style="margin:0 0 8px;font-size:13px">OpenSanctions API 키를 넣으면 제재·수출통제·사기 명단도 확인합니다. 키는 이 브라우저에만 저장됩니다. 실제 서비스에서는 서버 환경변수에 넣습니다.</p><div style="display:flex;gap:8px;flex-wrap:wrap"><input class="input" id="osKey" type="password" autocomplete="off" placeholder="API 키" value="${esc(store(OS_KEY) || '')}" style="flex:1 1 220px;min-width:0"><button class="btn btn-soft btn-sm" type="button" id="osSave">저장</button></div></div></details>` : ''}
@@ -2970,7 +3249,7 @@ async function runSearch(query, companyId = null, label = null, autoPick = true)
     } else {
       let id = companyId;
       if (!id) {
-        const cands = await sample.searchCompanies(query);
+        const cands = await sample.searchCompanies(query, { country: document.getElementById('qc')?.value || '' });
         if (!cands.length) throw new Error('일치하는 회사를 찾지 못했습니다. 영문 회사명이나 웹사이트 주소로 다시 검색해 보세요.');
         if (cands.length > 1) result = { candidates: cands };
         else id = cands[0].id;
@@ -3045,6 +3324,7 @@ async function viewReport(id) {
         <button class="btn btn-soft btn-sm" id="actAgain" type="button">다시 조회</button>
       </div>
     </section>
+    ${c.generated ? `<div class="notice warn" role="note"><b>가상 리포트입니다.</b> ${c.knownCompany ? '실제 기업 이름이지만, 샘플 모드라 아래 수치(통관·신용 등)는 실제 정보가 아닙니다.' : '샘플 목록에 없는 회사라, 입력한 이름·국가·업종에 맞춰 만든 예시 데이터입니다.'} 실제 정보는 실데이터 연결(DATA_PROVIDER=live) 후 확인하세요.</div>` : ''}
     ${PREVIEW && r.sources.some((s) => s.state === 'fail') ? `<div class="notice danger" role="note"><b>일부 출처에 연결하지 못했습니다.</b> 이 파일을 내 컴퓨터에서 직접 열면 브라우저 보안 정책(CORS)이나 회사 방화벽 때문에 막힐 수 있습니다. Vercel에 배포해 <code>DATA_PROVIDER=live</code>로 두면 서버에서 조회하므로 이 제한이 없습니다.</div>` : ''}
     ${r.capped ? `<div class="notice warn" role="note"><b>정보가 부족해 등급을 보수적으로 매겼습니다.</b> 확인한 항목만 보면 ${esc(r.capped.from)}등급이지만, ${esc(r.coverage.missing.join(' · '))} 정보를 확인하지 못해 ${esc(r.capped.to)}등급으로 표시합니다. 바이어에게 사업자등록증·은행 확인서를 요청하거나 무역보험공사 신용조사로 보완하세요.</div>` : ''}
 

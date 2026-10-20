@@ -86,12 +86,14 @@ Vercel → Project → Settings → Environment Variables 에 `.env.example` 의
 
 ## 테스트 데이터
 - **샘플 바이어 21곳** (`lib/providers/sample.js`): A 5 · B 6 · C 4 · D 3 · F 3곳. 회사명·한글 별칭·사업자번호·웹사이트로 검색할 수 있습니다.
+- **목록에 없는 회사**: 회사명·법인 형태(GmbH 등)·웹사이트·선택한 국가로 국가와 업종을 추론해, 국가·도시·도메인·업종·품목·법원이 서로 맞는 가상 리포트를 만듭니다 (`lib/providers/sample-gen.js`). 화면에 '가상 리포트'로 표시되며, 잘 알려진 실제 기업은 위험 정보를 만들지 않습니다.
 - **정답표·테스트 시나리오**: `Trade-Checker-테스트데이터.xlsx` (검색·계산기·실서비스 테스트)
 - **실서비스 시드 데이터**: `supabase/seed_test_data.sql` — 테스트 계정으로 가입한 뒤 파일 맨 위 이메일만 바꿔 SQL Editor에서 실행하면 조회 기록 8건, 관심 거래처 3곳(등급 변동 1건), 결제 내역 2건, Starter 요금제가 채워집니다. 여러 번 실행해도 중복되지 않습니다.
 
 ## 테스트
 ```bash
-node tests/live-sources.test.mjs     # 실데이터 연결부 20개
+node tests/live-sources.test.mjs     # 실데이터 연결부 22개
+node tests/sample-consistency.test.mjs  # 샘플 데이터 일관성 (회사명·국가·도시·업종·품목 460여 건)
 bash tests/run-live-tests.sh         # 실서비스 API 29개 (로컬 Postgres 필요)
 psql ... -f tests/sql_scenarios.sql  # DB 함수 시나리오 (요금제 환산·팀·환불)
 python3 tests/team_ui_test.py        # 팀·공유·CSV 화면 (run-live-tests 의 서버가 떠 있을 때)

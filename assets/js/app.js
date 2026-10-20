@@ -204,10 +204,10 @@ function viewSearch(params) {
       <div style="display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap"><span class="eyebrow">바이어 신용 검증</span>${PREVIEW && window.TC_LIVE ? `<div class="seg" role="group" aria-label="데이터 선택"><button type="button" data-mode="sample" aria-pressed="${!previewLive()}">샘플 데이터</button><button type="button" data-mode="live" aria-pressed="${previewLive()}">실데이터</button></div>` : ''}</div>
       <h1>어떤 바이어를 확인할까요?</h1>
       <p class="muted" style="margin:0">${realData() ? '영문 회사명, 바이어 이메일 주소, 웹사이트 주소 중 하나를 입력하세요. 국가를 고르면 더 정확하게 찾습니다.' : '영문 회사명, 사업자등록번호, 웹사이트 주소 중 아는 것 하나만 입력하세요. 철자가 조금 달라도 찾아 드립니다.'}</p>
-      <form class="searchbox${realData() ? ' with-country' : ''}" id="searchForm" role="search">
+      <form class="searchbox with-country" id="searchForm" role="search">
         <label class="sr" for="q">바이어 회사명, 이메일, 사업자번호 또는 URL</label>
         <input id="q" name="q" type="search" enterkeyhint="search" autocomplete="off" autocapitalize="off" spellcheck="false" placeholder="${realData() ? '예: Siemens AG 또는 buyer@company.ae' : '예: Northwind Global Trading LLC'}" value="${esc(q)}" required minlength="2">
-        ${realData() ? `<label class="sr" for="qc">바이어 국가</label><select id="qc" class="country-select"><option value="">국가 (선택)</option>${Object.entries(COUNTRIES).filter(([k]) => k !== 'KR').sort((a, b) => a[1].localeCompare(b[1], 'ko')).map(([k, v]) => `<option value="${k}" ${params.get('c') === k ? 'selected' : ''}>${esc(v)}</option>`).join('')}</select>` : ''}
+        ${true ? `<label class="sr" for="qc">바이어 국가</label><select id="qc" class="country-select"><option value="">국가 (선택)</option>${Object.entries(COUNTRIES).filter(([k]) => !['KR', 'KP'].includes(k)).sort((a, b) => a[1].localeCompare(b[1], 'ko')).map(([k, v]) => `<option value="${k}" ${params.get('c') === k ? 'selected' : ''}>${esc(v)}</option>`).join('')}</select>` : ''}
         <button class="btn btn-primary" type="submit">안전 등급 조회</button>
       </form>
       ${previewLive() ? `<details class="oskey"><summary>제재 명단 API 키 넣기 (선택)</summary><div><p class="muted" style="margin:0 0 8px;font-size:13px">OpenSanctions API 키를 넣으면 제재·수출통제·사기 명단도 확인합니다. 키는 이 브라우저에만 저장됩니다. 실제 서비스에서는 서버 환경변수에 넣습니다.</p><div style="display:flex;gap:8px;flex-wrap:wrap"><input class="input" id="osKey" type="password" autocomplete="off" placeholder="API 키" value="${esc(store(OS_KEY) || '')}" style="flex:1 1 220px;min-width:0"><button class="btn btn-soft btn-sm" type="button" id="osSave">저장</button></div></div></details>` : ''}
@@ -293,7 +293,7 @@ async function runSearch(query, companyId = null, label = null, autoPick = true)
     } else {
       let id = companyId;
       if (!id) {
-        const cands = await sample.searchCompanies(query);
+        const cands = await sample.searchCompanies(query, { country: document.getElementById('qc')?.value || '' });
         if (!cands.length) throw new Error('일치하는 회사를 찾지 못했습니다. 영문 회사명이나 웹사이트 주소로 다시 검색해 보세요.');
         if (cands.length > 1) result = { candidates: cands };
         else id = cands[0].id;
@@ -368,6 +368,7 @@ async function viewReport(id) {
         <button class="btn btn-soft btn-sm" id="actAgain" type="button">다시 조회</button>
       </div>
     </section>
+    ${c.generated ? `<div class="notice warn" role="note"><b>가상 리포트입니다.</b> ${c.knownCompany ? '실제 기업 이름이지만, 샘플 모드라 아래 수치(통관·신용 등)는 실제 정보가 아닙니다.' : '샘플 목록에 없는 회사라, 입력한 이름·국가·업종에 맞춰 만든 예시 데이터입니다.'} 실제 정보는 실데이터 연결(DATA_PROVIDER=live) 후 확인하세요.</div>` : ''}
     ${PREVIEW && r.sources.some((s) => s.state === 'fail') ? `<div class="notice danger" role="note"><b>일부 출처에 연결하지 못했습니다.</b> 이 파일을 내 컴퓨터에서 직접 열면 브라우저 보안 정책(CORS)이나 회사 방화벽 때문에 막힐 수 있습니다. Vercel에 배포해 <code>DATA_PROVIDER=live</code>로 두면 서버에서 조회하므로 이 제한이 없습니다.</div>` : ''}
     ${r.capped ? `<div class="notice warn" role="note"><b>정보가 부족해 등급을 보수적으로 매겼습니다.</b> 확인한 항목만 보면 ${esc(r.capped.from)}등급이지만, ${esc(r.coverage.missing.join(' · '))} 정보를 확인하지 못해 ${esc(r.capped.to)}등급으로 표시합니다. 바이어에게 사업자등록증·은행 확인서를 요청하거나 무역보험공사 신용조사로 보완하세요.</div>` : ''}
 

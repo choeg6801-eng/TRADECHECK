@@ -12,7 +12,7 @@ const read = (p) => readFileSync(path.join(root, p), 'utf8');
 // ---------- 1. 자바스크립트 모듈 묶기 ----------
 // [모듈 이름, 실제 파일] — 실데이터 모드는 서버 캐시 대신 브라우저 캐시를 씁니다.
 const MODULES = [
-  '/lib/products.js', '/lib/countries.js', '/lib/engine.js', '/lib/providers/sample.js',
+  '/lib/products.js', '/lib/countries.js', '/lib/engine.js', '/lib/providers/sample-gen.js', '/lib/providers/sample.js',
   '/lib/sources/http.js', '/lib/sources/gleif.js', '/lib/sources/rdap.js', '/lib/sources/opensanctions.js', '/lib/sources/creditsafe.js', '/lib/sources/importgenius.js',
   ['/lib/server/cache.js', '/lib/browser/cache.js'], '/lib/providers/live.js',
   '/assets/js/client.js', '/assets/js/landing.js', '/assets/js/app.js',
